@@ -1,4 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import DriverImage from "common/src/assets/image/Backend.svg";
+import RiderImage from "common/src/assets/image/DesignSide.svg";
 
 const OptionWrapper = styled.section`
   .container {
@@ -9,19 +11,22 @@ const OptionWrapper = styled.section`
   }
 
   .rider_image_area {
-    width: 50%;
+    z-index: 0;
+    /* width: 50%; */
     @media (max-width: 550px) {
       display: none;
     }
   }
   .driver_image_area {
-    width: 50%;
+    z-index: 0;
+    /* width: 50%; */
     @media (max-width: 550px) {
       display: none;
     }
   }
   .desTitleWrapper {
-    width: 50%;
+    z-index: 1;
+    width: 40%;
     transition: all 0.5s;
     @media (max-width: 550px) {
       width: 100%;
@@ -31,7 +36,7 @@ const OptionWrapper = styled.section`
       transition: 0.35s ease-in-out;
       z-index: 1;
       &:before {
-        content: '';
+        content: "";
         position: absolute;
         width: calc(100% + 4px);
         height: 9px;
@@ -58,7 +63,7 @@ const OptionWrapper = styled.section`
             font-size: 14px;
           }
           &:after {
-            content: '';
+            content: "";
             position: absolute;
             width: 100%;
             height: 1px;
@@ -87,10 +92,18 @@ const OptionWrapper = styled.section`
     }
   }
   .desTitleWrapperLeft {
+    z-index: 1;
+    position: absolute;
+    left: 7%;
     align-items: flex-start;
     .desOnHoverLeft {
       text-align: left;
     }
+  }
+  .desTitleWrapperRight {
+    z-index: 1;
+    position: absolute;
+    right: 10%;
   }
   .riderBlock,
   .driverBlock {

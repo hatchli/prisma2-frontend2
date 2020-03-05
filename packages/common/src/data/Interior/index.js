@@ -53,27 +53,28 @@ export const menuData = [
 /* ------------------------------------ */
 // Banner section data
 /* ------------------------------------ */
-import slide1 from "common/src/assets/image/cherry-upgrade.svg";
+import slide1 from "common/src/assets/image/needslist.svg";
 import slide2 from "common/src/assets/image/Remote-Personal-Training.svg";
 
 export const bannerData = {
   discount: "25%",
   discountLabel: "DISCOUNT ON YOUR FIRST DESIGN",
-  title: "Get the strength you need",
-  text: "Transorm your body and strength",
+  title: "Suceed online!",
+  text:
+    "Improve your online presence with a beautiful and powerful new website",
   carousel: [
     {
       id: 1,
       users_only: true,
       thumb_url: slide1,
-      title: "FREE Stronger Today PDF - READ NOW",
+      title: "",
       link: "#1"
     },
     {
       id: 2,
       thumb_url: slide2,
       users_only: false,
-      title: "Personal Training in Toronto, Canada",
+      title: "Schedule a consultation ",
       link: "#2"
     }
   ]

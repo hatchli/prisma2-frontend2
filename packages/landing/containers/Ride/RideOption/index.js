@@ -8,8 +8,8 @@ import Image from "reusecore/src/elements/Image";
 import Container from "common/src/components/UI/Container";
 import Button from "reusecore/src/elements/Button";
 import { OptionWrapper } from "./rideOption.style";
-import DriverImage from "common/src/assets/image/ride/driver-side.svg";
-import RiderImage from "common/src/assets/image/ride/riding-share.svg";
+import DriverImage from "common/src/assets/image/Backend.svg";
+import RiderImage from "common/src/assets/image/DesignSide.svg";
 
 const SkillSection = ({
   sectionWrapper,
@@ -27,27 +27,50 @@ const SkillSection = ({
   button1,
   button2
 }) => {
-  const [state, setState] = useState({
-    active: true
+  const [leftState, setLeftState] = useState({
+    active: false
   });
-  const activeStatus = state.active;
+  const [rightState, setRightState] = useState({
+    active: false
+  });
+  const activeStatusLeft = leftState.active;
+  const activeStatusRight = rightState.active;
 
   return (
     <OptionWrapper id="ride_section">
       <Box {...sectionWrapper} as="section">
         <Container noGutter mobileGutter width="1200px" className="container">
+          <Box {...secTitleWrapper}>
+            <Heading {...secTitle} content="Fullstack Development" />
+            <Text
+              {...secDescription}
+              content="You will have complete control of your website's design, server and database"
+            />
+            <Text
+              {...secDescription}
+              content="Any feature or experience you can imagine is possible!"
+            />
+          </Box>
+
           <Box {...row}>
             <Box
               {...col}
               {...col1}
-              className={activeStatus ? "riderBlock active-item" : "riderBlock"}
-              onMouseEnter={() => setState({ active: true })}
+              className={
+                activeStatusLeft ? "riderBlock active-item" : "riderBlock"
+              }
+              onMouseEnter={() => setLeftState({ active: true })}
+              onMouseLeave={() => setLeftState({ active: false })}
             >
               <Box
                 {...desTitleWrapper}
                 className="desTitleWrapper desTitleWrapperLeft"
               >
-                <Heading {...rideTitle} content="Rider" className="desTitle" />
+                <Heading
+                  {...rideTitle}
+                  content="Frontend"
+                  className="desTitle"
+                />
                 <Box {...desOnHover} className="desOnHover desOnHoverLeft">
                   <Text
                     {...desDetails}
@@ -77,19 +100,27 @@ const SkillSection = ({
               {...col}
               {...col2}
               className={
-                activeStatus === false
+                activeStatusRight === true
                   ? "driverBlock active-item"
                   : "driverBlock"
               }
-              onMouseEnter={() => setState({ active: false })}
+              onMouseEnter={() => setRightState({ active: true })}
+              onMouseLeave={() => setRightState({ active: false })}
             >
               <Image
                 src={DriverImage}
                 className="driver_image_area"
                 alt="Driver Image"
               />
-              <Box {...desTitleWrapper} className="desTitleWrapper">
-                <Heading {...rideTitle} content="Driver" className="desTitle" />
+              <Box
+                {...desTitleWrapper}
+                className="desTitleWrapper desTitleWrapperRight"
+              >
+                <Heading
+                  {...rideTitle}
+                  content="Backend"
+                  className="desTitle"
+                />
                 <Box {...desOnHover} className="desOnHover ">
                   <Text
                     {...desDetails}
@@ -144,8 +175,8 @@ SkillSection.propTypes = {
 
 SkillSection.defaultProps = {
   sectionWrapper: {
-    pt: ["60px", "80px", "100px", "110px", "180px"],
-    pb: ["60px", "80px", "100px", "110px", "120px"]
+    pt: ["60px", "80px", "100px"],
+    pb: ["60px", "80px", "100px"]
   },
   secTitleWrapper: {
     mb: ["65px", "65px", "80px", "90px", "90px"]
@@ -157,6 +188,7 @@ SkillSection.defaultProps = {
     lineHeight: "1.34",
     mb: ["15px", "18px", "18px", "20px", "30px"],
     textAlign: "center"
+    // fontFamily: "Poppins"
   },
   secDescription: {
     fontSize: ["15px", "16px"],
@@ -169,6 +201,7 @@ SkillSection.defaultProps = {
     maxWidth: "100%",
     ml: "auto",
     mr: "auto"
+    // fontFamily: "Lato"
   },
   rideTitle: {
     fontSize: ["22px", "26px", "26px", "30px", "36px"],
@@ -177,6 +210,7 @@ SkillSection.defaultProps = {
     lineHeight: "1.34",
     mb: ["15px", "18px", "18px", "20px", "30px"],
     textAlign: "center"
+    // fontFamily: "Poppins"
   },
   row: {
     flexBox: true,
@@ -185,8 +219,8 @@ SkillSection.defaultProps = {
   col: {
     width: "48%",
     bg: "#fcfcfc",
-    pt: ["50px", "50px", "50px", "110px", "110px"],
-    pb: ["50px", "50px", "50px", "110px", "110px"],
+    pt: ["50px", "50px", "50px"],
+    pb: ["50px", "50px", "50px"],
 
     flexBox: true
   },
@@ -214,11 +248,13 @@ SkillSection.defaultProps = {
     lineHeight: "1.5",
     mb: "0",
     maxWidth: "100%"
+    // fontFamily: "Lato"
   },
   button1: {
     type: "button",
     fontSize: "16px",
     fontWeight: "700",
+    // fontFamily: "Lato",
     color: "#000",
     border: "0",
     minHeight: "55px",
@@ -229,6 +265,7 @@ SkillSection.defaultProps = {
     type: "button",
     fontSize: "16px",
     fontWeight: "700",
+    // fontFamily: "Lato",
     color: "#1A73E8",
     border: "0",
     minHeight: "auto",

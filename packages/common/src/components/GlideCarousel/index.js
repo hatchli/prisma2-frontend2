@@ -1,14 +1,14 @@
-import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Glide from '@glidejs/glide';
-import '@glidejs/glide/dist/css/glide.core.min.css';
+import React, { Fragment, useEffect } from "react";
+import PropTypes from "prop-types";
+import Glide from "@glidejs/glide";
+import "@glidejs/glide/dist/css/glide.core.min.css";
 import GlideWrapper, {
   ButtonControlWrapper,
   ButtonWrapper,
   BulletControlWrapper,
   BulletButton,
-  DefaultBtn,
-} from './glide.style';
+  DefaultBtn
+} from "./glide.style";
 
 const GlideCarousel = ({
   className,
@@ -24,10 +24,10 @@ const GlideCarousel = ({
   buttonWrapperStyle,
   bulletWrapperStyle,
   bulletButtonStyle,
-  carouselSelector,
+  carouselSelector
 }) => {
   // Add all classs to an array
-  const addAllClasses = ['glide'];
+  const addAllClasses = ["glide"];
 
   // className prop checking
   if (className) {
@@ -42,19 +42,26 @@ const GlideCarousel = ({
 
   // Load glide
   useEffect(() => {
-    const glide = new Glide(
-      carouselSelector ? `#${carouselSelector}` : '#glide',
+    var glide = new Glide(
+      carouselSelector ? `#${carouselSelector}` : "#glide",
       {
-        ...options,
+        ...options
       }
     );
     glide.mount();
+    window.addEventListener("resize", function() {
+      if (document.documentElement.clientWidth < 768) {
+        glide.update({ perView: 1 });
+      } else {
+        glide.update({ perView: 3 });
+      }
+    });
   });
 
   return (
     <GlideWrapper
-      className={addAllClasses.join(' ')}
-      id={carouselSelector || 'glide'}
+      className={addAllClasses.join(" ")}
+      id={carouselSelector || "glide"}
     >
       <div className="glide__track" data-glide-el="track">
         <ul className="glide__slides">{children}</ul>
@@ -162,13 +169,13 @@ GlideCarousel.propTypes = {
    * It's contain  display, width, height, space,
    * bg, borders, boxShadow and borderRadius style-system prop.
    */
-  bulletButtonStyle: PropTypes.object,
+  bulletButtonStyle: PropTypes.object
 };
 
 // GlideCarousel default props
 GlideCarousel.defaultProps = {
   controls: true,
-  bullets: false,
+  bullets: false
 };
 
 export default GlideCarousel;

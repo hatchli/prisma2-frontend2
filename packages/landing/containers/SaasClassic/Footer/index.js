@@ -95,7 +95,7 @@ Footer.defaultProps = {
   },
   // Footer col default style
   col: {
-    width: ["100%", "50%", "50%", "25%"],
+    width: ["50%", "50%", "50%", "25%"],
     pl: "15px",
     pr: "15px",
     mb: "30px"

@@ -6,9 +6,11 @@ import { interiorTheme } from "common/src/theme/interior";
 import { DrawerProvider } from "common/src/contexts/DrawerContext";
 import Navbar from "../containers/Interior/Navbar";
 import RideOption from "../containers/Ride/RideOption";
-import Feature from "../containers/Interior/Feature";
+import ProcessSection from "../containers/Portfolio/Process";
+// import Feature from "../containers/Interior/Feature";
 import Banner from "../containers/Interior/Banner";
 import Project from "../containers/Interior/Project";
+import Pricing from "../containers/SaasClassic/Pricing";
 import Newsletter from "../containers/SaasClassic/Newsletter";
 import Footer from "../containers/SaasClassic/Footer";
 import { ResetCSS } from "common/src/assets/css/style";
@@ -23,13 +25,10 @@ export default () => {
     <ThemeProvider theme={interiorTheme}>
       <Fragment>
         <Head>
-          <title>Hatchli | Prisma2 Proof of Concept</title>
+          <title>Hatchli | Serverless Web Design</title>
           <meta name="theme-color" content="#171717" />
           <meta name="description" content="Web Developer Full Stack" />
-          <meta
-            name="keywords"
-            content="React, Next, Javascript, MySQL, SQL, Prisma, Prisma2, GraphQL, Apollo, Yoga"
-          />
+          <meta name="keywords" content="" />
           <link
             href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600,700&display=swap"
             rel="stylesheet"
@@ -47,9 +46,10 @@ export default () => {
           </Sticky>
           <ContentWrapper>
             <Banner />
-            <Feature />
+            <ProcessSection />
             <RideOption />
             <Project />
+            <Pricing />
             <Newsletter />
           </ContentWrapper>
           <Footer />

@@ -1,4 +1,4 @@
-import colors from './colors';
+import colors from "./colors";
 
 export const saasClassicTheme = {
   breakpoints: [576, 768, 991, 1220],
@@ -8,24 +8,24 @@ export const saasClassicTheme = {
   lineHeights: {
     solid: 1,
     title: 1.25,
-    copy: 1.5,
+    copy: 1.5
   },
   letterSpacings: {
-    normal: 'normal',
-    tracked: '0.1em',
-    tight: '-0.05em',
-    mega: '0.25em',
+    normal: "normal",
+    tracked: "0.1em",
+    tight: "-0.05em",
+    mega: "0.25em"
   },
   borders: [
     0,
-    '1px solid',
-    '2px solid',
-    '3px solid',
-    '4px solid',
-    '5px solid',
-    '6px solid',
+    "1px solid",
+    "2px solid",
+    "3px solid",
+    "4px solid",
+    "5px solid",
+    "6px solid"
   ],
-  radius: [3, 4, 5, 10, 20, 30, 60, 120, '50%'],
+  radius: [3, 4, 5, 10, 20, 30, 60, 120, "50%"],
   widths: [36, 40, 44, 48, 54, 70, 81, 128, 256],
   heights: [36, 40, 44, 46, 48, 54, 70, 81, 128],
   maxWidths: [16, 32, 64, 128, 256, 512, 768, 1024, 1536],
@@ -35,117 +35,125 @@ export const saasClassicTheme = {
       color: colors.primary,
       borderColor: colors.transparent,
       backgroundColor: colors.transparent,
-      '&:hover': {
+      "&:hover": {
         color: colors.primary,
-        backgroundColor: colors.transparent,
-      },
+        backgroundColor: colors.transparent
+      }
     },
     secondary: {
       color: colors.secondary,
       borderColor: colors.transparent,
       backgroundColor: colors.transparent,
-      '&:hover': {
+      "&:hover": {
         color: colors.secondaryHover,
         borderColor: colors.transparent,
-        backgroundColor: colors.transparent,
-      },
+        backgroundColor: colors.transparent
+      }
     },
     warning: {
       color: colors.yellow,
       borderColor: colors.yellow,
-      '&:hover': {
+      "&:hover": {
         color: colors.yellowHover,
-        borderColor: colors.yellowHover,
-      },
+        borderColor: colors.yellowHover
+      }
     },
     error: {
       color: colors.secondaryHover,
       borderColor: colors.secondaryHover,
-      '&:hover': {
+      "&:hover": {
         color: colors.secondary,
-        borderColor: colors.secondary,
-      },
+        borderColor: colors.secondary
+      }
     },
     primaryWithBg: {
       color: colors.white,
       backgroundColor: colors.primary,
       borderColor: colors.primary,
-      border: '1px solid',
-      '&:hover': {
+      border: "1px solid",
+      "&:hover": {
         color: colors.white,
         backgroundColor: colors.primaryHover,
         borderColor: colors.primaryHover,
-        boxShadow: colors.primaryBoxShadow,
-      },
+        boxShadow: colors.primaryBoxShadow
+      }
     },
     secondaryWithBg: {
       color: colors.black,
       backgroundColor: colors.secondary,
-      borderColor: colors.secondary,
-      '&:hover': {
+      borderColor: colors.white,
+      "&:hover": {
         color: colors.black,
         backgroundColor: colors.secondaryHover,
         borderColor: colors.secondaryHover,
-        boxShadow: colors.secondaryBoxShadow,
-      },
+        boxShadow: colors.secondaryBoxShadow
+      }
+    },
+    inactive: {
+      color: colors.white,
+      backgroundColor: colors.inactiveButton,
+      // borderColor: colors.yellow,
+      "&:hover": {
+        backgroundColor: colors.inactiveField
+      }
     },
     warningWithBg: {
       color: colors.white,
       backgroundColor: colors.yellow,
       borderColor: colors.yellow,
-      '&:hover': {
+      "&:hover": {
         backgroundColor: colors.yellowHover,
-        borderColor: colors.yellowHover,
-      },
+        borderColor: colors.yellowHover
+      }
     },
     errorWithBg: {
       color: colors.white,
       backgroundColor: colors.secondaryHover,
       borderColor: colors.secondaryHover,
-      '&:hover': {
+      "&:hover": {
         backgroundColor: colors.secondary,
-        borderColor: colors.secondary,
-      },
+        borderColor: colors.secondary
+      }
     },
     transparentBg: {
       backgroundColor: colors.white,
-      '&:hover': {
-        backgroundColor: colors.white,
-      },
-    },
+      "&:hover": {
+        backgroundColor: colors.white
+      }
+    }
   },
   buttonStyles: {
     textButton: {
       border: 0,
       color: colors.primary,
       padding: 0,
-      height: 'auto',
-      backgroundColor: colors.transparent,
+      height: "auto",
+      backgroundColor: colors.transparent
     },
     outlined: {
-      borderWidth: '1px',
-      borderStyle: 'solid',
-      backgroundColor: colors.transparent,
+      borderWidth: "1px",
+      borderStyle: "solid",
+      backgroundColor: colors.transparent
     },
     fab: {
-      border: '0',
-      width: '40px',
-      height: '40px',
+      border: "0",
+      width: "40px",
+      height: "40px",
       padding: 0,
-      borderRadius: '50%',
-      justifyContent: 'center',
-      'span.btn-icon': {
-        paddingLeft: 0,
-      },
+      borderRadius: "50%",
+      justifyContent: "center",
+      "span.btn-icon": {
+        paddingLeft: 0
+      }
     },
     extendedFab: {
-      border: '0',
-      minWidth: '50px',
-      height: '40px',
-      borderRadius: '50px',
-      justifyContent: 'center',
-    },
-  },
+      border: "0",
+      minWidth: "50px",
+      height: "40px",
+      borderRadius: "50px",
+      justifyContent: "center"
+    }
+  }
   // FlexBox: {
   //   backgroundColor: 'green'
   // }

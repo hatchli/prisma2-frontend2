@@ -22,7 +22,8 @@ const colors = {
   link: "#352FD9",
   banner: "#171717",
   darkBg: "#0D0D0D",
-  lightBg: "#fbfafe"
+  lightBg: "#fbfafe",
+  success: "#6AC69F"
 };
 
 export default colors;

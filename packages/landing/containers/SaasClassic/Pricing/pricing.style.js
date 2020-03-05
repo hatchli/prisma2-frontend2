@@ -1,11 +1,156 @@
-import styled from 'styled-components';
-import { themeGet } from 'styled-system';
+import styled, { keyframes } from "styled-components";
+import { themeGet } from "styled-system";
+import error from "common/src/assets/image/error.svg";
+import success from "common/src/assets/image/success.svg";
 
 export const PricingTableWrapper = styled.div`
   .glide__slides {
     align-items: stretch;
     .glide__slide {
       height: auto;
+    }
+  }
+`;
+
+const shake = keyframes`
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(7px);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
+export const ButtonGroup = styled.div`
+  margin-top: 50px;
+  text-align: center;
+  @media only screen and (max-width: 767px) {
+    margin-top: 25px;
+    margin-bottom: 54px;
+  }
+
+  .reusecore__button {
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 5px;
+    &:first-child {
+      margin-right: 30px;
+      &:hover {
+        opacity: 0.95;
+        box-shadow: 0px 9px 21px rgba(131, 84, 255, 0.25);
+      }
+    }
+
+    &:hover {
+      .btn-icon {
+        animation: ${shake} 1s infinite;
+      }
+    }
+  }
+`;
+
+export const FormWrapper = styled.form`
+  margin-top: 45px;
+  @media only screen and (max-width: 767px) {
+    margin-top: 40px;
+  }
+
+  .reusecore__input {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    background: rgba(0, 0, 0, 0);
+    &::after {
+      content: "";
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      top: calc(50% - 16px / 2);
+      right: 0px;
+    }
+    &.invalid {
+      &::after {
+        background-image: url(${error});
+      }
+    }
+    &.valid {
+      &::after {
+        background-image: url(${success});
+      }
+    }
+    &.is-material {
+      &.is-focus {
+        label {
+          color: ${themeGet("colors.primary", "#10ac84")};
+          top: -12px;
+        }
+        textarea {
+        }
+
+        .highlight {
+          background-color: ${themeGet("colors.primary", "#10ac84")};
+        }
+      }
+    }
+
+    textarea {
+      resize: none;
+      font-family: inherit;
+      font-size: inherit;
+      background: rgba(0, 0, 0, 0);
+      min-height: 6em;
+    }
+
+    input {
+      background: rgba(0, 0, 0, 0);
+    }
+
+    label {
+      display: flex;
+      font-weight: 400;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.6);
+      top: 15px;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 22px;
+
+      i {
+        color: ${themeGet("colors.lightText", "#7E7E7E")};
+        svg {
+          width: auto;
+          height: 24px;
+        }
+      }
+    }
+  }
+
+  &::after {
+    content: "";
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: calc(50% - 16px / 2);
+    right: 25px;
+  }
+
+  &.invalid {
+    &::after {
+      background-image: url(${error});
+    }
+  }
+  &.valid {
+    &::after {
+      background-image: url(${success});
     }
   }
 `;
@@ -60,9 +205,13 @@ const PricingList = styled.div`
 const ListItem = styled.div`
   display: flex;
   margin-bottom: 23px;
-  justify-content: center;
+  justify-content: space-between;
+  /* text-align: left; */
   &:last-child {
     margin-bottom: 0;
+  }
+  .itemCheckbox {
+    width: 100%;
   }
   .price_list_icon {
     color: #18d379;
@@ -80,11 +229,11 @@ const SwitchWrapper = styled.div`
       color: #5c636c;
       cursor: pointer;
     }
-    input[type='checkbox'] {
+    input[type="checkbox"] {
       &:checked {
         + div {
           width: 40px !important;
-          background-color: ${themeGet('colors.primary')};
+          background-color: ${themeGet("colors.primary")};
           > div {
             left: 17px !important;
           }
@@ -121,7 +270,7 @@ const PricingButtonWrapper = styled.div`
     margin-top: 40px;
   }
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     width: 100%;
     height: 1px;
@@ -150,7 +299,7 @@ const PricingButtonWrapper = styled.div`
       color: #ff4362;
     }
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       width: 100%;
       height: 2px;
@@ -200,6 +349,6 @@ export {
   PricingList,
   ListItem,
   SwitchWrapper,
-  PricingButtonWrapper,
+  PricingButtonWrapper
 };
 export default PricingTable;

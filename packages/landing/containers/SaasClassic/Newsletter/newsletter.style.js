@@ -1,4 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import { themeGet } from "styled-system";
+import error from "common/src/assets/image/error.svg";
+import success from "common/src/assets/image/success.svg";
 
 const NewsletterWrapper = styled.div`
   position: relative;
@@ -50,6 +53,9 @@ export const ContactFormWrapper = styled.div`
   .email_input {
     flex-grow: 1;
     margin-right: 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
 
     @media (max-width: 575px) {
       width: 100%;
@@ -65,6 +71,18 @@ export const ContactFormWrapper = styled.div`
         .highlight {
           background: #fff;
           height: 1px;
+        }
+      }
+    }
+    .input-icon {
+      position: absolute;
+      left: 22px;
+
+      i {
+        color: ${themeGet("colors.lightText", "#7E7E7E")};
+        svg {
+          width: auto;
+          height: 24px;
         }
       }
     }
@@ -92,6 +110,26 @@ export const ContactFormWrapper = styled.div`
       padding-left: 10px;
       top: 5px;
       pointer-events: none;
+    }
+
+    &::after {
+      content: "";
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      top: calc(50% - 16px / 2);
+      right: 25px;
+    }
+
+    &.invalid {
+      &::after {
+        background-image: url(${error});
+      }
+    }
+    &.valid {
+      &::after {
+        background-image: url(${success});
+      }
     }
   }
 `;

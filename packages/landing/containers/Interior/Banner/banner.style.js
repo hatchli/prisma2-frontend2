@@ -17,7 +17,13 @@ const shake = keyframes`
     opacity: 1;
   }
 `;
-
+export const SuccessWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  .text {
+    max-width: 50%;
+  }
+`;
 const BannerWrapper = styled.div`
   padding-top: 30px;
   /* margin-bottom: 60px; */
@@ -26,8 +32,8 @@ const BannerWrapper = styled.div`
     margin-bottom: 60px;
   } */
   @media only screen and (max-width: 767px) {
-    padding: 135px 0 82px;
-    margin-bottom: 42px;
+    padding: 135px 0 0px;
+    margin-bottom: 12px;
   }
   .particle {
     position: absolute;
@@ -64,13 +70,13 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   @media only screen and (max-width: 1600px) {
-    padding: 0 81px;
-  }
-  @media only screen and (max-width: 1360px) {
     padding: 0 60px;
   }
-  @media only screen and (max-width: 991px) {
+  @media only screen and (max-width: 1360px) {
     padding: 0 30px;
+  }
+  @media only screen and (max-width: 991px) {
+    padding: 0 10px;
   }
   @media only screen and (max-width: 767px) {
     flex-direction: column;
@@ -151,6 +157,9 @@ export const FormWrapper = styled.form`
   margin-top: 45px;
   @media only screen and (max-width: 767px) {
     margin-top: 40px;
+  }
+  .hidden {
+    visibility: hidden;
   }
 
   .input_element {

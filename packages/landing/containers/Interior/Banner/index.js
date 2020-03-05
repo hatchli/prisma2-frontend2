@@ -1,7 +1,11 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Link from "next/link";
-import { useQuery } from "@apollo/client";
-import { IS_LOGGED_IN } from "../../../MutationsQueries";
+import { useQuery, useMutation } from "@apollo/client";
+import {
+  IS_LOGGED_IN,
+  NEW_PROPOSAL,
+  EMAIL_CONSULT
+} from "../../../MutationsQueries";
 import { openModal, closeModal } from "@redq/reuse-modal";
 import LoginModal from "../LoginModal";
 import PropTypes from "prop-types";
@@ -14,10 +18,10 @@ import Text from "reusecore/src/elements/Text";
 import Image from "reusecore/src/elements/Image";
 import Button from "reusecore/src/elements/Button";
 import Input from "common/src/components/Input";
-import GlideCarousel from "common/src/components/GlideCarousel";
-import GlideSlide from "common/src/components/GlideCarousel/glideSlide";
+import Alert from "reusecore/src/elements/Alert/index";
 import { CircleLoader } from "../interior.style";
 import BannerWrapper, {
+  SuccessWrapper,
   Container,
   ContentArea,
   HighlightedText,
@@ -26,9 +30,16 @@ import BannerWrapper, {
   CarouselArea
 } from "./banner.style";
 
+import SuccessImage from "common/src/assets/image/Custom-size.svg";
+
 import { bannerData } from "common/src/data/Interior";
 
-const Banner = ({ greetingStyle, onClick }) => {
+const Banner = ({
+  greetingStyle,
+  greetingStyleTwo,
+  priceLabelStyle,
+  nameStyle
+}) => {
   const CloseModalButton = () => (
     <Button
       className="modalCloseBtn"
@@ -39,6 +50,7 @@ const Banner = ({ greetingStyle, onClick }) => {
   );
 
   const handleLoginModal = () => {
+    e.preventDefault();
     console.log("handleLogin called!");
     openModal({
       config: {
@@ -84,8 +96,6 @@ const Banner = ({ greetingStyle, onClick }) => {
   const [state, setState] = useState({ email: "", valid: "" });
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-  const { loading, error, data } = useQuery(IS_LOGGED_IN);
-
   const handleOnChange = e => {
     let value = "";
     if (e.target.value.match(emailRegex)) {
@@ -102,11 +112,23 @@ const Banner = ({ greetingStyle, onClick }) => {
     }
   };
 
+  const [
+    newProposal,
+    { loading: emailLoading, error: emailError, data: emailData, client }
+  ] = useMutation(EMAIL_CONSULT, { errorPolicy: "all" });
+
   const handleSubscriptionForm = e => {
     e.preventDefault();
     if (state.email.match(emailRegex)) {
       console.log(state.email);
-      setState({ email: "", valid: "" });
+
+      newProposal({
+        variables: {
+          input: {
+            email: state.email
+          }
+        }
+      });
     }
   };
 
@@ -115,12 +137,12 @@ const Banner = ({ greetingStyle, onClick }) => {
       <Particles />
       <Container>
         <ContentArea>
-          <Fade bottom delay={30}>
-            <Heading as="h1" content={title} {...greetingStyle} />
-            <Text content={text} />
+          <Heading as="h1" content={title} {...greetingStyle} />
+          <Heading content={text} {...greetingStyleTwo} />
+          {!loadingState && (
             <FormWrapper onSubmit={handleSubscriptionForm}>
               <Input
-                className={state.valid}
+                className="hidden"
                 type="email"
                 placeholder="Enter email address"
                 icon={<Icon icon={iosEmailOutline} />}
@@ -129,78 +151,169 @@ const Banner = ({ greetingStyle, onClick }) => {
                 onChange={handleOnChange}
                 aria-label="email"
               />
-              <ButtonGroup>
-                <Button
-                  type="submit"
-                  colors="primaryWithBg"
-                  title="FREE CONSULT"
-                />
-                <Button
-                  title="EXPLORE MORE"
-                  variant="textButton"
-                  icon={<i className="flaticon-next" />}
-                />
+              <ButtonGroup className="hidden">
+                <>
+                  <Button
+                    type="submit"
+                    colors="primaryWithBg"
+                    title="FREE CONSULT"
+                  />
+                  <Button
+                    title="EXPLORE MORE"
+                    variant="textButton"
+                    icon={<i className="flaticon-next" />}
+                  />
+                </>
               </ButtonGroup>
             </FormWrapper>
-          </Fade>
+          )}
+          {loadingState && (
+            <Fade bottom delay={10}>
+              <FormWrapper onSubmit={handleSubscriptionForm}>
+                <Input
+                  className={state.valid}
+                  type="email"
+                  placeholder="Enter email address"
+                  icon={<Icon icon={iosEmailOutline} />}
+                  iconPosition="left"
+                  required={true}
+                  onChange={handleOnChange}
+                  aria-label="email"
+                />
+                <ButtonGroup>
+                  {emailLoading ? (
+                    <>
+                      <Button
+                        type="submit"
+                        colors="primaryWithBg"
+                        title="Submiting..."
+                        isLoading
+                      />
+                      <Button
+                        title="EXPLORE MORE"
+                        variant="textButton"
+                        icon={<i className="flaticon-next" />}
+                      />
+                    </>
+                  ) : !emailLoading && emailData !== undefined ? (
+                    <>
+                      {console.log(emailData)}
+                      <SuccessWrapper>
+                        <Text
+                          className="text"
+                          content={`Please look out for an email from us to ${state.email} within 24 hours`}
+                          {...priceLabelStyle}
+                        />
+                        <Button
+                          title="EXPLORE MORE"
+                          variant="textButton"
+                          icon={<i className="flaticon-next" />}
+                        />
+                      </SuccessWrapper>
+                    </>
+                  ) : emailError ? (
+                    <>
+                      {console.log(emailError.graphQLErrors)}
+                      {emailError.graphQLErrors !== undefined ? (
+                        emailError.graphQLErrors.map(({ message }, i) => (
+                          <Button
+                            key={i}
+                            title={message}
+                            variant="textButton"
+                            colors="errorWithBg"
+                          />
+                        ))
+                      ) : emailError.networkError !== undefined ? (
+                        <>
+                          {console.log(emailError.networkError)}
+                          <Button
+                            title={emailError.networkError}
+                            variant="textButton"
+                            colors="errorWithBg"
+                          />
+                        </>
+                      ) : (
+                        <Button
+                          title="Uh-oh - seems there's a problem with the network!"
+                          variant="textButton"
+                          colors="errorWithBg"
+                        />
+                      )}
+
+                      <Button
+                        title="EXPLORE MORE"
+                        variant="textButton"
+                        icon={<i className="flaticon-next" />}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <Button
+                        type="submit"
+                        colors="primaryWithBg"
+                        title="FREE CONSULT"
+                      />
+                      <Button
+                        title="EXPLORE MORE"
+                        variant="textButton"
+                        icon={<i className="flaticon-next" />}
+                      />
+                    </>
+                  )}
+                </ButtonGroup>
+              </FormWrapper>
+            </Fade>
+          )}
         </ContentArea>
         {/* End of content section */}
-
         <CarouselArea>
-          {loadingState ? (
-            <GlideCarousel
-              carouselSelector="interior_carousel"
-              options={glideOptions}
-              nextButton={<span className="next_arrow" />}
-              prevButton={<span className="prev_arrow" />}
-            >
-              <Fragment>
-                {carousel.map(item => (
-                  <GlideSlide key={`carousel_key${item.id}`}>
-                    {item.users_only === true && data.isLoggedIn === false ? (
-                      <Link scroll={false}>
-                        <a onClick={handleLoginModal} className="item_wrapper">
-                          <Image src={item.thumb_url} alt={item.title} />
-                          <Heading as="h4" content={item.title} />
-                        </a>
-                      </Link>
-                    ) : (
-                      <Link href={item.link}>
-                        <a className="item_wrapper">
-                          <Image src={item.thumb_url} alt={item.title} />
-                          <Heading as="h4" content={item.title} />
-                        </a>
-                      </Link>
-                    )}
-                  </GlideSlide>
-                ))}
-              </Fragment>
-            </GlideCarousel>
-          ) : (
-            <CircleLoader>
-              <div className="circle"></div>
-              <div className="circle"></div>
-            </CircleLoader>
-          )}
+          <Image
+            src={SuccessImage}
+            className="man_image_area"
+            alt="Man Image"
+          />
         </CarouselArea>
-        {/* End of carousel section */}
       </Container>
     </BannerWrapper>
   );
 };
 
 Banner.propTypes = {
-  greetingStyle: PropTypes.object
+  greetingStyle: PropTypes.object,
+  greetingStyleTwo: PropTypes.object
 };
 
 Banner.defaultProps = {
   greetingStyle: {
     as: "h1",
     color: "#15172c",
-    fontSize: ["52px", "60px", "74px", "88px", "92px"],
+    fontSize: ["36px", "48px", "52px", "72px"],
     fontWeight: "600",
-    lineHeight: ["60px", "48px", "60px", "65px", "98px"],
+    lineHeight: ["48px", "60px", "65px", "98px"],
     mb: "0px"
+  },
+  greetingStyleTwo: {
+    as: "h2",
+    color: "#15172c",
+    fontSize: ["30px", "36px", "48px"],
+    fontWeight: "400",
+    lineHeight: ["40px", "48px", "60px"],
+    mb: "8px"
+  },
+  priceLabelStyle: {
+    fontSize: ["13px", "14px", "14px", "14px", "14px"],
+    color: "#6e7379",
+    lineHeight: "1.75",
+    textAlign: "center",
+    mb: "0"
+  },
+  nameStyle: {
+    fontSize: ["20px", "20px", "22px", "22px", "22px"],
+    fontWeight: "700",
+    color: "#0f2137",
+    letterSpacing: "-0.025em",
+    textAlign: "center",
+    mb: "12px"
   }
 };
 

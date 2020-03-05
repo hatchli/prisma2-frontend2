@@ -35,7 +35,6 @@ const LoginModal = ({
   contentWrapper,
   outlineBtnStyle,
   descriptionStyle,
-  googleButtonStyle,
   warningWithBg
 }) => {
   const [password, setPassword] = useState("");
@@ -74,16 +73,22 @@ const LoginModal = ({
     }
   ] = useMutation(LOGIN_MUTATION, {
     variables: { email, password },
-    async onCompleted({ login }) {
-      localStorage.setItem("token", login.token);
-      const currentLoggedIn = await login.user;
-      clientLogin.writeData({
+    update(
+      cache,
+      {
+        data: { login }
+      }
+    ) {
+      console.log("login", login);
+      console.log("cache", cache);
+      console.log("dataLogin", dataLogin);
+      cache.writeQuery({
+        query: IS_CURRENTLY_LOGGED_IN,
         data: {
-          isLoggedIn: true,
-          user: {
-            name: currentLoggedIn.name,
-            user_id: currentLoggedIn.user_id,
-            email: currentLoggedIn.email,
+          currentUser: {
+            name: login.user.name,
+            user_id: login.user.user_id,
+            email: login.user.email,
             token: login.token
           }
         }
@@ -101,20 +106,19 @@ const LoginModal = ({
     }
   ] = useMutation(SIGNUP_MUTATION, {
     variables: { name, email: email.email, password },
-    async onCompleted({ signup }) {
-      console.log("name", name, "email", email, "password", password);
-      console.log("signup", signup);
-      localStorage.setItem("token", signup.token);
-      const currentSignUp = await signup.user;
-      console.log("currentSignUp", currentSignUp);
-      console.log("clientSignup", clientSignup);
-      clientSignup.writeData({
+    update(
+      cache,
+      {
+        data: { signup }
+      }
+    ) {
+      cache.writeQuery({
+        query: IS_CURRENTLY_LOGGED_IN,
         data: {
-          isLoggedIn: true,
-          user: {
-            name: currentSignUp.name,
-            user_id: currentSignUp.user_id,
-            email: currentSignUp.email,
+          currentUser: {
+            name: signup.user.name,
+            user_id: signup.user.user_id,
+            email: signup.user.email,
             token: signup.token
           }
         }
@@ -190,7 +194,7 @@ const LoginModal = ({
                 {loadingSignup && (
                   <Heading content="Loading..." {...titleStyle} />
                 )}
-                {errorSignup && !userCurrentlyLoggedIn && (
+                {errorSignup && (
                   <>
                     <Alert>
                       {console.log(errorSignup)}
@@ -204,25 +208,26 @@ const LoginModal = ({
                     />
                   </>
                 )}
-                {!loadingSignup && userCurrentlyLoggedIn.data === undefined && (
-                  <>
-                    <Heading content="Register" {...titleStyle} />
-                    <Text
-                      content="Please signup with your personal account information."
-                      {...descriptionStyle}
-                    />
-                  </>
-                )}
+                {!loadingSignup &&
+                  userCurrentlyLoggedIn.data.currentUser === null && (
+                    <>
+                      <Heading content="Register" {...titleStyle} />
+                      <Text
+                        content="Please signup with your personal account information."
+                        {...descriptionStyle}
+                      />
+                    </>
+                  )}
                 {!loadingSignup &&
                   !errorSignup &&
-                  userCurrentlyLoggedIn.data !== undefined && (
+                  userCurrentlyLoggedIn.data.currentUser !== null && (
                     <>
                       <Heading
-                        content={`Welcome ${userCurrentlyLoggedIn.data.user.name}!`}
+                        content={`Welcome ${userCurrentlyLoggedIn.data.currentUser.name}!`}
                         {...titleStyle}
                       />
                       <Text
-                        content={`Not ${userCurrentlyLoggedIn.data.user.name}? Register below!`}
+                        content={`Not ${userCurrentlyLoggedIn.data.currentUser.name}? Register below!`}
                         {...descriptionStyle}
                       />
                     </>
@@ -262,9 +267,10 @@ const LoginModal = ({
                       <span key={i}>{message}</span>
                     ))}
                   </Alert>
-                ) : !errorLogin && userCurrentlyLoggedIn.data !== undefined ? (
+                ) : !errorLogin &&
+                  userCurrentlyLoggedIn.data.currentUser !== null ? (
                   <Heading
-                    content={userCurrentlyLoggedIn.data.user.name}
+                    content={userCurrentlyLoggedIn.data.currentUser.name}
                     {...titleStyle}
                   />
                 ) : errorLogin ? (
@@ -274,13 +280,13 @@ const LoginModal = ({
                 )}
                 {(errorLogin ||
                   errorSignup ||
-                  userCurrentlyLoggedIn.data === undefined) && (
+                  userCurrentlyLoggedIn.data.currentUser === null) && (
                   <Text
                     content="Please login with your personal account information."
                     {...descriptionStyle}
                   />
                 )}
-                {userCurrentlyLoggedIn.data === undefined ? (
+                {userCurrentlyLoggedIn.data.currentUser === null ? (
                   <>
                     <Input
                       inputType="email"

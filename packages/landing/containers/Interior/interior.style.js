@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle, keyframes } from "styled-components";
 import { themeGet } from "styled-system";
+import Line from "common/src/assets/image/portfolio/dotted-line.png";
 
 const shake = keyframes`
   0% {
@@ -590,6 +591,40 @@ const ContentWrapper = styled.div`
   flex: 1 0 auto;
   width: 100%;
   overflow: hidden;
+
+  .process_item_col {
+    &:nth-child(2),
+    &:nth-child(3) {
+      .process_item {
+        &:before {
+          content: "";
+          background-image: url(${Line});
+          width: 165px;
+          height: 35px;
+          display: block;
+          background-repeat: no-repeat;
+          background-position: center;
+          position: absolute;
+          left: -165px;
+          top: 20px;
+          @media (max-width: 990px) {
+            width: 100px;
+            left: -80px;
+          }
+          @media (max-width: 767px) {
+            display: none;
+          }
+        }
+      }
+    }
+    &:nth-child(3) {
+      .process_item {
+        &:before {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
 `;
 
 /* ------------------------------------ */
@@ -681,7 +716,7 @@ const CircleLoader = styled.div`
 
     &:nth-of-type(2) {
       animation-delay: 0.75s;
-      background-color: ${themeGet("colors.white", "#ffffff")};
+      background-color: ${themeGet("colors.primary", "#34558b")};
     }
   }
 

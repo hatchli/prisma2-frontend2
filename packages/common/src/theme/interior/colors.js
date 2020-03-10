@@ -23,7 +23,10 @@ const colors = {
   banner: "#171717",
   darkBg: "#0D0D0D",
   lightBg: "#fbfafe",
-  success: "#6AC69F"
+  success: "#6AC69F",
+  primaryBoxShadow: "0px 8px 20px -6px rgba(255, 66, 101, 0.57)",
+  secondaryBoxShadow: "0px 8px 20px -6px rgba(237, 205, 55, 0.5)",
+  normalBoxShadow: "0px 7px 25px rgba(0, 0, 0, 0.08)"
 };
 
 export default colors;

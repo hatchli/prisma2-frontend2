@@ -132,7 +132,7 @@ export const aboutData = {
 /* ------------------------------------ */
 // Projects section data
 /* ------------------------------------ */
-import project1 from "common/src/assets/image/interior/projects/1.png";
+import project1 from "common/src/assets/image/new-hatchli-logo.svg";
 
 export const projectData = {
   title: "WORK PROCEDURE",

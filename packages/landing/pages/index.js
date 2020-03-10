@@ -4,15 +4,17 @@ import Sticky from "react-stickynode";
 import { ThemeProvider } from "styled-components";
 import { interiorTheme } from "common/src/theme/interior";
 import { DrawerProvider } from "common/src/contexts/DrawerContext";
-import Navbar from "../containers/Interior/Navbar";
-import RideOption from "../containers/Ride/RideOption";
-import ProcessSection from "../containers/Portfolio/Process";
+import Navbar from "../Navbar";
+import ProcessSection from "../Process";
+import DashboardFrontend from "../DashboardFrontend";
+import DashboardBackend from "../DashboardBackend";
 // import Feature from "../containers/Interior/Feature";
-import Banner from "../containers/Interior/Banner";
-import Project from "../containers/Interior/Project";
-import Pricing from "../containers/SaasClassic/Pricing";
-import Newsletter from "../containers/SaasClassic/Newsletter";
-import Footer from "../containers/SaasClassic/Footer";
+import Banner from "../Banner";
+import Project from "../Project";
+import Pricing from "../Pricing";
+import Newsletter from "../Newsletter";
+import Footer from "../Footer";
+
 import { ResetCSS } from "common/src/assets/css/style";
 import {
   GlobalStyle,
@@ -26,9 +28,9 @@ export default () => {
       <Fragment>
         <Head>
           <title>Hatchli | Serverless Web Design</title>
-          <meta name="theme-color" content="#171717" />
+          <meta name="theme-color" content="#FECE2F" />
           <meta name="description" content="Web Developer Full Stack" />
-          <meta name="keywords" content="" />
+          <meta name="keywords" content="website developer design custom " />
           <link
             href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600,700&display=swap"
             rel="stylesheet"
@@ -47,7 +49,9 @@ export default () => {
           <ContentWrapper>
             <Banner />
             <ProcessSection />
-            <RideOption />
+            <DashboardFrontend />
+
+            <DashboardBackend />
             <Project />
             <Pricing />
             <Newsletter />

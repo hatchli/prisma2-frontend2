@@ -6,8 +6,8 @@ import Heading from "reusecore/src/elements/Heading";
 import Button from "reusecore/src/elements/Button";
 import Input from "reusecore/src/elements/Input";
 import Container from "common/src/components/UI/Container";
-import { useQuery, useMutation } from "@apollo/client";
-import { EMAIL_CONSULT } from "../../../MutationsQueries";
+import { useMutation } from "@apollo/client";
+import { EMAIL_CONSULT } from "../MutationsQueries";
 
 import NewsletterWrapper, { ContactFormWrapper } from "./newsletter.style";
 import { border } from "styled-system";
@@ -61,51 +61,53 @@ const Newsletter = ({
   };
 
   return (
-    <Box {...sectionWrapper} as="section">
-      <Container>
-        <NewsletterWrapper>
-          <Box {...textArea}>
-            <Heading content="Subscribe our newsletter" {...title} />
-            <Text
-              content="Lorem ipsum dolor sit amet consectetur adipisicing elit sed eiusmod tempor incididunt labore dolore"
-              {...description}
-            />
-          </Box>
-          <Box {...buttonArea}>
-            <ContactFormWrapper>
-              <Input
-                className={`${state.valid} email_input`}
-                type="email"
-                inputType="email"
-                label="Email address"
-                iconPosition="right"
-                isMaterial={true}
-                onChange={handleOnChange}
+    <>
+      <Box {...sectionWrapper} as="section">
+        <Container>
+          <NewsletterWrapper>
+            <Box {...textArea}>
+              <Heading content="Contact Us" {...title} />
+              <Text
+                content="Let's get started building your custom website! From a simple landing page to a full-blown service-focused website, Hatchli can be the one-stop solution for your online needs."
+                {...description}
               />
-              <Button
-                {...buttonStyle}
-                isLoading={emailLoading ? true : false}
-                onClick={handleSubscriptionForm}
-                disabled={
-                  emailData !== undefined ||
-                  state.valid == ("invalid" || "" || null)
-                    ? true
-                    : false
-                }
-                color={emailError ? error : null}
-                title={
-                  emailError
-                    ? "Oh no, something went wrong!"
-                    : emailData !== undefined
-                    ? "THANK YOU!"
-                    : "FREE CONSULT"
-                }
-              />
-            </ContactFormWrapper>
-          </Box>
-        </NewsletterWrapper>
-      </Container>
-    </Box>
+            </Box>
+            <Box {...buttonArea}>
+              <ContactFormWrapper>
+                <Input
+                  className={`${state.valid} email_input`}
+                  type="email"
+                  inputType="email"
+                  label="Email address"
+                  iconPosition="right"
+                  isMaterial={true}
+                  onChange={handleOnChange}
+                />
+                <Button
+                  {...buttonStyle}
+                  isLoading={emailLoading ? true : false}
+                  onClick={handleSubscriptionForm}
+                  disabled={
+                    emailData !== undefined ||
+                    state.valid == ("invalid" || "" || null)
+                      ? true
+                      : false
+                  }
+                  color={emailError ? error : null}
+                  title={
+                    emailError
+                      ? "Oh no, something went wrong!"
+                      : emailData !== undefined
+                      ? "THANK YOU!"
+                      : "FREE CONSULT"
+                  }
+                />
+              </ContactFormWrapper>
+            </Box>
+          </NewsletterWrapper>
+        </Container>
+      </Box>
+    </>
   );
 };
 
@@ -120,6 +122,7 @@ Newsletter.propTypes = {
 
 Newsletter.defaultProps = {
   sectionWrapper: {
+    pt: ["50px"],
     mt: ["15px", "150px"]
   },
   textArea: {

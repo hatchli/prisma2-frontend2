@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { themeGet } from 'styled-system';
+import styled from "styled-components";
+import { themeGet } from "styled-system";
 
-import curvBg from 'common/src/assets/image/interior/curv-bg.svg';
+import curvBg from "common/src/assets/image/interior/curv-bg.svg";
 
 const SectionWrapper = styled.section`
   padding: 130px 0 260px;
@@ -19,6 +19,15 @@ const SectionWrapper = styled.section`
     margin-top: 42px;
     padding: 82px 0;
   }
+  .subtitle {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    margin-bottom: 12px;
+    letter-spacing: 1.5px;
+    color: #d1397c;
+    text-transform: uppercase;
+  }
 
   header {
     text-align: left;
@@ -28,13 +37,13 @@ const SectionWrapper = styled.section`
     position: relative;
 
     &::after {
-      content: '';
+      content: "";
       display: block;
       width: calc(100% + 30px);
       height: 70px;
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
-      background-color: ${themeGet('colors.white', '#ffffff')};
+      background-color: ${themeGet("colors.white", "#ffffff")};
       position: absolute;
       bottom: -260px;
       left: -15px;
@@ -51,7 +60,7 @@ const SectionWrapper = styled.section`
 export const ProjectWrapper = styled.div`
   display: flex;
   padding: 80px 60px;
-  background-color: ${themeGet('colors.white', '#ffffff')};
+  background-color: ${themeGet("colors.white", "#ffffff")};
   @media only screen and (max-width: 1200px) {
     padding: 40px;
   }
@@ -92,30 +101,30 @@ export const ProjectWrapper = styled.div`
         > span {
           &.next_arrow {
             width: 45px;
-            background-color: ${themeGet('colors.link', '#352FD9')};
+            background-color: ${themeGet("colors.link", "#352FD9")};
             @media only screen and (max-width: 667px) {
               width: 30px;
             }
 
             &::before {
-              background-color: ${themeGet('colors.link', '#352FD9')};
+              background-color: ${themeGet("colors.link", "#352FD9")};
               transform: rotate(42deg);
             }
 
             &::after {
               transform: rotate(-42deg);
-              background-color: ${themeGet('colors.link', '#352FD9')};
+              background-color: ${themeGet("colors.link", "#352FD9")};
             }
           }
         }
 
         &:hover {
           > span {
-            background-color: ${themeGet('colors.link', '#352FD9')};
+            background-color: ${themeGet("colors.link", "#352FD9")};
 
             &::before,
             &::after {
-              background-color: ${themeGet('colors.link', '#352FD9')};
+              background-color: ${themeGet("colors.link", "#352FD9")};
             }
           }
         }
@@ -136,6 +145,7 @@ export const ImageWrapper = styled.div`
     width: 350px;
   }
   @media only screen and (max-width: 667px) {
+    display: none;
     width: 100%;
     margin-top: 54px;
   }

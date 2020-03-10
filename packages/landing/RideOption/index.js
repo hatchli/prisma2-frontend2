@@ -8,8 +8,11 @@ import Image from "reusecore/src/elements/Image";
 import Container from "common/src/components/UI/Container";
 import Button from "reusecore/src/elements/Button";
 import { OptionWrapper } from "./rideOption.style";
-import DriverImage from "common/src/assets/image/Backend.svg";
-import RiderImage from "common/src/assets/image/DesignSide.svg";
+import BackendImage from "common/src/assets/image/Backend.svg";
+import FrontendImage from "common/src/assets/image/DesignSide.svg";
+import { SERVICE_LIST } from "common/src/data/Portfolio/data";
+import { plus } from "react-icons-kit/feather/plus";
+import { Icon } from "react-icons-kit";
 
 const SkillSection = ({
   sectionWrapper,
@@ -24,8 +27,15 @@ const SkillSection = ({
   rideTitle,
   desOnHover,
   desDetails,
+  subDetails,
   button1,
-  button2
+  button2,
+  learningList,
+  listItem,
+  listText,
+  listTitle,
+  learningListArea,
+  listIcon
 }) => {
   const [leftState, setLeftState] = useState({
     active: false
@@ -40,7 +50,7 @@ const SkillSection = ({
     <OptionWrapper id="ride_section">
       <Box {...sectionWrapper} as="section">
         <Container noGutter mobileGutter width="1200px" className="container">
-          <Box {...secTitleWrapper}>
+          {/* <Box {...secTitleWrapper}>
             <Heading {...secTitle} content="Fullstack Development" />
             <Text
               {...secDescription}
@@ -50,14 +60,14 @@ const SkillSection = ({
               {...secDescription}
               content="Any feature or experience you can imagine is possible!"
             />
-          </Box>
+          </Box> */}
 
           <Box {...row}>
             <Box
               {...col}
               {...col1}
               className={
-                activeStatusLeft ? "riderBlock active-item" : "riderBlock"
+                activeStatusLeft ? "frontendBlock active-item" : "frontendBlock"
               }
               onMouseEnter={() => setLeftState({ active: true })}
               onMouseLeave={() => setLeftState({ active: false })}
@@ -71,11 +81,17 @@ const SkillSection = ({
                   content="Frontend"
                   className="desTitle"
                 />
+                <Text
+                  {...subDetails}
+                  className="desDetailsFirst"
+                  content="We Build Thoughfully Designed Websites"
+                />
+                <Text {...desDetails} className="desDetailsFirst" content="" />
                 <Box {...desOnHover} className="desOnHover desOnHoverLeft">
                   <Text
                     {...desDetails}
                     className="desDetailsFirst"
-                    content="Ride at any time."
+                    content="A beutiful website that encourages your visitors to interact -."
                   />
                   <Text {...desDetails} content="Find Riders around you!" />
                   <Link href="#services">
@@ -91,9 +107,9 @@ const SkillSection = ({
                 </Box>
               </Box>
               <Image
-                src={RiderImage}
-                className="rider_image_area"
-                alt="Man Image"
+                src={FrontendImage}
+                className="frontend_image_area"
+                alt="Frontend Image"
               />
             </Box>
             <Box
@@ -101,16 +117,16 @@ const SkillSection = ({
               {...col2}
               className={
                 activeStatusRight === true
-                  ? "driverBlock active-item"
-                  : "driverBlock"
+                  ? "backendBlock active-item"
+                  : "backendBlock"
               }
               onMouseEnter={() => setRightState({ active: true })}
               onMouseLeave={() => setRightState({ active: false })}
             >
               <Image
-                src={DriverImage}
-                className="driver_image_area"
-                alt="Driver Image"
+                src={BackendImage}
+                className="backend_image_area"
+                alt="Backend Image"
               />
               <Box
                 {...desTitleWrapper}
@@ -121,21 +137,43 @@ const SkillSection = ({
                   content="Backend"
                   className="desTitle"
                 />
+                <Text
+                  {...subDetails}
+                  className="desDetailsFirst"
+                  content="Your Website Brought to Life"
+                />
                 <Box {...desOnHover} className="desOnHover ">
-                  <Text
+                  {/* <Text
                     {...desDetails}
                     className="desDetailsFirst"
-                    content="Drive when you want."
-                  />
-                  <Text
-                    {...desDetails}
-                    content="Find opportunities around you!"
-                  />
-                  <Link href="#services">
-                    <a className="buttonStyle">
-                      <Button title="Learn More" {...button1} />
-                    </a>
-                  </Link>
+                    content="Dream big - a powerful website can do a lot."
+                  /> */}
+                  <Box {...learningListArea}>
+                    {SERVICE_LIST.filter(
+                      service => service.title === "UI/UX Design"
+                    ).map((serviceList, index) => (
+                      <Box {...learningList} key={`serviceList-${index}`}>
+                        {/* <Heading
+                          content="Dream big - a powerful website can do a lot."
+                          {...listTitle}
+                        /> */}
+                        {serviceList.listItems.map((item, index) => (
+                          <Box {...listItem} key={`list-item-${index}`}>
+                            <Icon
+                              icon={item.icon || plus}
+                              size={item.iconSize || 12}
+                              {...listIcon}
+                            />
+                            <Text
+                              as="span"
+                              content={item.content}
+                              {...listText}
+                            />
+                          </Box>
+                        ))}
+                      </Box>
+                    ))}
+                  </Box>
                   <Link href="#services">
                     <a className="buttonStyle signupBtn">
                       <Button title="Sign up for ride" {...button2} />
@@ -170,16 +208,23 @@ SkillSection.propTypes = {
   desOnHover: PropTypes.object,
   desDetails: PropTypes.object,
   button1: PropTypes.object,
-  button2: PropTypes.object
+  button2: PropTypes.object,
+  learningList: PropTypes.object,
+  listItem: PropTypes.object,
+  listText: PropTypes.object,
+  listIcon: PropTypes.object,
+  listTitle: PropTypes.object,
+  learningListArea: PropTypes.object,
+  learningTitle: PropTypes.object
 };
 
 SkillSection.defaultProps = {
   sectionWrapper: {
-    pt: ["60px", "80px", "100px"],
-    pb: ["60px", "80px", "100px"]
+    pt: ["60px", "90px", "120px"],
+    pb: ["60px", "90px", "120px"]
   },
   secTitleWrapper: {
-    mb: ["65px", "65px", "80px", "90px", "90px"]
+    mb: ["65px"]
   },
   secTitle: {
     fontSize: ["22px", "26px", "26px", "30px", "36px"],
@@ -197,7 +242,7 @@ SkillSection.defaultProps = {
     lineHeight: "1.5",
     mb: "0",
     textAlign: "center",
-    width: "300px",
+    width: "600px",
     maxWidth: "100%",
     ml: "auto",
     mr: "auto"
@@ -208,19 +253,30 @@ SkillSection.defaultProps = {
     fontWeight: "600",
     color: "#15172C",
     lineHeight: "1.34",
-    mb: ["15px", "18px", "18px", "20px", "30px"],
+    // mb: ["15px", "18px", "18px"],
     textAlign: "center"
     // fontFamily: "Poppins"
   },
+  subDetails: {
+    fontSize: ["18px", "20px", "22px", "24px", "26px"],
+    pb: ["15px", "18px", "18px"],
+    fontWeight: "400",
+    color: "#15172C",
+    lineHeight: "1.5",
+    mb: "0",
+    maxWidth: "60%"
+    // fontFamily: "Lato"
+  },
   row: {
     flexBox: true,
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    overflow: "hidden"
   },
   col: {
-    width: "48%",
+    width: "100%",
     bg: "#fcfcfc",
     pt: ["50px", "50px", "50px"],
-    pb: ["50px", "50px", "50px"],
+    // pb: ["50px", "50px", "50px"],
 
     flexBox: true
   },
@@ -242,7 +298,7 @@ SkillSection.defaultProps = {
     width: "100%"
   },
   desDetails: {
-    fontSize: ["14px", "14px", "16px", "16px", "16px"],
+    fontSize: ["14px", "14px", "16px", "16px", "19px"],
     fontWeight: "400",
     color: "#15172C",
     lineHeight: "1.5",
@@ -250,6 +306,7 @@ SkillSection.defaultProps = {
     maxWidth: "100%"
     // fontFamily: "Lato"
   },
+
   button1: {
     type: "button",
     fontSize: "16px",
@@ -270,6 +327,43 @@ SkillSection.defaultProps = {
     border: "0",
     minHeight: "auto",
     p: "0"
+  },
+  learningListArea: {
+    width: ["100%", "100%", "100%", "100%", "60%"],
+    flexBox: true,
+    flexWrap: "wrap"
+  },
+  learningList: {
+    width: ["100%", "100%", "100%", "100%", "100%"],
+    pl: ["0", "0", "35px", "35px", "35x"],
+    pr: ["0", "30px", "0", "0", "0"],
+    flexBox: true,
+    flexDirection: "column"
+    // mb: ["40px", "40px", "60px", "80px", "90px"]
+  },
+  listTitle: {
+    fontSize: "20px",
+    fontWeight: "600",
+    color: "#302b4e"
+    // mb: "25px"
+  },
+  listItem: {
+    flexBox: true,
+    flexDirection: "row",
+    color: "#43414e",
+    mb: "16px"
+  },
+  listText: {
+    flexBox: true,
+    justifyContent: "flex-start",
+    fontSize: "16px",
+    fontWeight: "400",
+    color: "#43414e",
+    mb: "0",
+    ml: "5px"
+  },
+  listIcon: {
+    alignItems: "flex-start"
   }
 };
 

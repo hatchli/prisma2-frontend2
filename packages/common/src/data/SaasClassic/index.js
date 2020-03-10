@@ -60,13 +60,32 @@ export const SERVICE_ITEMS = [
   }
 ];
 
+export const TYPE_TABLE = [
+  {
+    id: 1,
+    value: "subscription",
+    title: "Subscription",
+    text: "Pay monthly and get started right away!"
+  },
+  {
+    id: 2,
+    value: "purchase",
+    title: "One-Time Purchase",
+    text: "Pay once and forget about it!"
+  }
+];
+
 export const MONTHLY_PRICING_TABLE = [
   {
+    id: 1,
+    value: "information",
+    title: "Informational Website",
     name: "Informational Website",
     category: "information",
     type: "subscription",
     description:
-      " Beautiful landing page for small businesses or personal portfolios",
+      "Beautiful landing page for small businesses or personal portfolios",
+    text: "Beautiful landing page for small businesses or personal portfolios",
     price: "29.99",
     priceLabel: "Per month",
     buttonLabel: "Tell Us More",
@@ -100,10 +119,14 @@ export const MONTHLY_PRICING_TABLE = [
     ]
   },
   {
+    id: 2,
+    value: "business",
+    title: "Business Website",
     name: "Business Website",
     category: "business",
     type: "subscription",
     description: "Multi-page Website for Small-Large Businesses",
+    text: "Multi-page Website for Medium-Large Businesses",
     price: "59.99",
     priceLabel: "Per month",
     buttonLabel: "Tell Us More",
@@ -139,10 +162,14 @@ export const MONTHLY_PRICING_TABLE = [
     ]
   },
   {
+    id: 3,
+    value: "ecommerce",
+    title: "E-Commerce Website",
     name: "E-Commerce Website",
     category: "ecommerce",
     type: "subscription",
     description: "Online Sale and Payment Processing of Products & Services",
+    text: "Online Sale and Payment Processing of Products & Services",
     price: "99.99",
     priceLabel: "Per month",
     buttonLabel: "Tell Us More",
@@ -294,6 +321,45 @@ export const YEARLY_PRICING_TABLE = [
         pcost: [500]
       }
     ]
+  }
+];
+
+export const ServiceType = [
+  {
+    id: 1,
+    title: "Landing Page",
+    value: "information",
+    text: "One Time donation given"
+  },
+  {
+    id: 2,
+    title: "Business",
+    value: "business",
+    text: "Everymonth donation given"
+  },
+  {
+    id: 3,
+    title: "E-Commerce",
+    value: "ecommerce",
+    text: "Everymonth donation given"
+  }
+];
+
+export const currencyOptions = [
+  {
+    id: 1,
+    value: "usd",
+    title: "$ USD"
+  },
+  {
+    id: 2,
+    value: "gbp",
+    title: "£ GBP"
+  },
+  {
+    id: 3,
+    value: "cny",
+    title: "¥ CNY"
   }
 ];
 

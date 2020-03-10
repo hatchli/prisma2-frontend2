@@ -5,7 +5,7 @@ import {
   SIGNUP_MUTATION,
   IS_LOGGED_IN,
   IS_CURRENTLY_LOGGED_IN
-} from "../../../MutationsQueries";
+} from "../MutationsQueries";
 import PropTypes from "prop-types";
 import Tabs, { TabPane } from "rc-tabs";
 import TabContent from "rc-tabs/lib/TabContent";

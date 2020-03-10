@@ -1,6 +1,6 @@
 import Document, { Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
-import FavIcon from "common/src/assets/image/favicon.png";
+import FavIcon from "common/src/assets/image/favicon32.png";
 
 export default class CustomDocument extends Document {
   static async getInitialProps(ctx) {

@@ -378,21 +378,21 @@ export const PORTFOLIO_SHOWCASE = [
 export const PROCESS_STEPS = [
   {
     image: Step1,
-    title: "1. Research",
+    title: "1. Strategize",
     description:
-      "We work with you to understand user’s stories and validate your idea with real users using lean design sprints."
+      "We work with you to understand and develop your ideas and goals, and how Hatchli can leverage it's technologies to make them happen ."
   },
   {
     image: Step2,
     title: "2. Design",
     description:
-      "Expanding on the insights gained, you’ll work closely with our design team to create an elegant design"
+      "We will draft an elegant and modern design that focuses on visitor engagement and a stream-lined experience"
   },
   {
     image: Step3,
     title: "3. Build",
     description:
-      "With our scrum-based agile methodology, you’ll receive iterative builds every two weeks, which gives you "
+      "Hatchli will build everything - turning design into reality, and implementing the database where visitor information is collected "
   }
 ];
 
@@ -401,45 +401,31 @@ export const SERVICE_LIST = [
     title: "UI/UX Design",
     listItems: [
       {
-        content: "Design Sprints"
+        content: "Elegant layouts that meet your needs and taste"
       },
       {
-        content: "User Research"
+        content: "Effective design that inspires confidence in your brand"
       },
       {
-        content: "Visual Design"
-      },
-      {
-        content: "Mobile App Design"
-      },
-      {
-        content: "Tracking & Learning"
-      },
-      {
-        content: "Building Traction"
+        content:
+          "Subtle animations that respond to your visitors actions, encouraging further engagment "
       }
     ]
   },
   {
-    title: "Web Development",
+    title: "Architecture",
     listItems: [
       {
-        content: "ReactJS"
+        content:
+          "Learn exactly what your customer's preferences and needs are, with powerful tools for capturing your visitor's information"
       },
       {
-        content: "AngularJS"
+        content:
+          'Provide "members-only" services that only registered or paying customers can access'
       },
       {
-        content: "ASP.NET MVC"
-      },
-      {
-        content: "WordPress"
-      },
-      {
-        content: "NodeJS"
-      },
-      {
-        content: "GO"
+        content:
+          "Use any Payment Processor to receive payment, and offer the payment plans that make sense for your business"
       }
     ]
   },

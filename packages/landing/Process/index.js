@@ -1,15 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import ClientBlock from "../ClientBlock";
+
 import Box from "reusecore/src/elements/Box";
 import Text from "reusecore/src/elements/Text";
 import Heading from "reusecore/src/elements/Heading";
 import Image from "reusecore/src/elements/Image";
-
+import Fade from "react-reveal/Fade";
 import Container from "common/src/components/UI/Container";
 
 import ProcessItem from "./process.style";
 import { PROCESS_STEPS } from "common/src/data/Portfolio/data";
+import { flex } from "styled-system";
 
 const ProcessSection = ({
   sectionWrapper,
@@ -24,17 +27,18 @@ const ProcessSection = ({
 }) => {
   return (
     <Box {...sectionWrapper} as="section" id="process_section">
-      <Container noGutter mobileGutter width="1200px">
+      <Container noGutter mobileGutter>
         <Box {...secTitleWrapper}>
           <Heading
             {...secTitle}
-            content="From Lean Design Sprints to Agile Development"
+            content="Hatchli Builds Custom, Powerful, and Modern Websites"
           />
           <Text
             {...secDescription}
-            content="Our process is designed to give you the best shot at success."
+            content="Using cutting-edge technologies so your website won't be forgotten"
           />
         </Box>
+        <ClientBlock />
 
         <Box {...processRow}>
           {PROCESS_STEPS.map((item, index) => (
@@ -44,13 +48,22 @@ const ProcessSection = ({
               className="process_item_col"
             >
               <ProcessItem className="process_item">
-                <Image
-                  src={item.image}
-                  alt={`process-image-${index + 1}`}
-                  {...processImageStyle}
-                />
-                <Heading as="h3" content={item.title} {...processTitleStyle} />
-                <Text content={item.description} {...processDescriptionStyle} />
+                <Fade bottom delay={(index + 1) * 50}>
+                  <Image
+                    src={item.image}
+                    alt={`process-image-${index + 1}`}
+                    {...processImageStyle}
+                  />
+                  <Heading
+                    as="h3"
+                    content={item.title}
+                    {...processTitleStyle}
+                  />
+                  <Text
+                    content={item.description}
+                    {...processDescriptionStyle}
+                  />
+                </Fade>
               </ProcessItem>
             </Box>
           ))}
@@ -75,10 +88,14 @@ ProcessSection.propTypes = {
 ProcessSection.defaultProps = {
   sectionWrapper: {
     // pt: ["60px", "80px", "90px", "100px"],
-    // pb: ["10px", "40px", "30px"]
+    pb: ["10px", "40px", "30px"],
+    width: "100%"
   },
   secTitleWrapper: {
-    mb: ["30px", "60px"]
+    mb: ["10px"],
+    width: "100%",
+    marginLeft: "auto",
+    marginRight: "auto"
   },
   secTitle: {
     fontSize: ["22px", "26px", "26px", "30px", "30px"],
@@ -89,12 +106,14 @@ ProcessSection.defaultProps = {
     textAlign: "center"
   },
   secDescription: {
-    fontSize: ["15px", "16px"],
+    fontSize: ["15px", "18px"],
     fontWeight: "400",
     color: "#43414e",
     lineHeight: "1.5",
     mb: "0",
-    textAlign: "center"
+    textAlign: "center",
+    marginLeft: "auto",
+    marginRight: "auto"
   },
   processRow: {
     flexBox: true,

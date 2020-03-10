@@ -1,22 +1,32 @@
 const colors = {
-  transparent: "transparent", // 0
-  black: "#000000", // 1
-  white: "#ffffff", // 2
-  headingColor: "#302b4e",
-  textColor: "#43414e", // 3
-  labelColor: "#767676", // 4
-  inactiveField: "#f2f2f2", // 5
-  inactiveButton: "#b7dbdd", // 6
-  inactiveIcon: "#EBEBEB", // 7
-  primary: "#ff4265", // 8
-  primaryHover: "#ff4265", // 9
-  secondary: "#edcd37", // 10
-  secondaryHover: "#edcd37", // 11
-  yellow: "#fdb32a", // 12
-  yellowHover: "#F29E02", // 13
-  borderColor: "#1b1e25", //14
+  transparent: "transparent",
+  label: "#15172c",
+  lightBorder: "#f1f4f6",
+  inactiveField: "#f2f2f2",
+  inactiveButton: "#b7dbdd",
+  inactiveIcon: "#EBEBEB",
+  primaryHover: "#658DC6",
+  secondary: "#D50032",
+  secondaryHover: "#EE2541",
+  yellow: "#fdb32a",
+  yellowHover: "#F29E02",
+  border: "#dadada",
+  black: "#000000",
+  white: "#ffffff",
+  primary: "#34558b",
+  heading: "#191919",
+  heading3: "#273343",
+  quote: "#343d48",
+  text: "#4E5865",
+  lightText: "#7E7E7E",
+  link: "#352FD9",
+  banner: "#171717",
+  darkBg: "#0D0D0D",
+  lightBg: "#fbfafe",
+  success: "#6AC69F",
   primaryBoxShadow: "0px 8px 20px -6px rgba(255, 66, 101, 0.57)",
-  secondaryBoxShadow: "0px 8px 20px -6px rgba(237, 205, 55, 0.5)"
+  secondaryBoxShadow: "0px 8px 20px -6px rgba(237, 205, 55, 0.5)",
+  normalBoxShadow: "0px 7px 25px rgba(0, 0, 0, 0.08)"
 };
 
 export default colors;

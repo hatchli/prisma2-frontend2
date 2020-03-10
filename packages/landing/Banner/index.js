@@ -1,11 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Link from "next/link";
 import { useQuery, useMutation } from "@apollo/client";
-import {
-  IS_LOGGED_IN,
-  NEW_PROPOSAL,
-  EMAIL_CONSULT
-} from "../../../MutationsQueries";
+import { IS_LOGGED_IN, NEW_PROPOSAL, EMAIL_CONSULT } from "../MutationsQueries";
 import { openModal, closeModal } from "@redq/reuse-modal";
 import LoginModal from "../LoginModal";
 import PropTypes from "prop-types";
@@ -13,13 +9,13 @@ import Fade from "react-reveal/Fade";
 import { Icon } from "react-icons-kit";
 import { iosEmailOutline } from "react-icons-kit/ionicons/iosEmailOutline";
 import Heading from "reusecore/src/elements/Heading";
-import Particles from "../../Agency/Particle";
+import Particles from "../containers/Agency/Particle";
 import Text from "reusecore/src/elements/Text";
 import Image from "reusecore/src/elements/Image";
 import Button from "reusecore/src/elements/Button";
 import Input from "common/src/components/Input";
 import Alert from "reusecore/src/elements/Alert/index";
-import { CircleLoader } from "../interior.style";
+// import { CircleLoader } from "../interior.style";
 import BannerWrapper, {
   SuccessWrapper,
   Container,

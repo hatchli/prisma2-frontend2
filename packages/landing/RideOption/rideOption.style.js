@@ -1,23 +1,24 @@
 import styled from "styled-components";
-import DriverImage from "common/src/assets/image/Backend.svg";
-import RiderImage from "common/src/assets/image/DesignSide.svg";
 
 const OptionWrapper = styled.section`
   .container {
+    display: flex;
     @media (max-width: 480px) {
       padding-left: 15px;
       padding-right: 15px;
     }
   }
 
-  .rider_image_area {
+  .frontend_image_area {
+    justify-self: flex-end;
+    justify-content: flex-end;
+    margin-right: 0;
     z-index: 0;
-    /* width: 50%; */
     @media (max-width: 550px) {
       display: none;
     }
   }
-  .driver_image_area {
+  .backend_image_area {
     z-index: 0;
     /* width: 50%; */
     @media (max-width: 550px) {
@@ -26,7 +27,7 @@ const OptionWrapper = styled.section`
   }
   .desTitleWrapper {
     z-index: 1;
-    width: 40%;
+    width: 100%;
     transition: all 0.5s;
     @media (max-width: 550px) {
       width: 100%;
@@ -105,8 +106,8 @@ const OptionWrapper = styled.section`
     position: absolute;
     right: 10%;
   }
-  .riderBlock,
-  .driverBlock {
+  .frontendBlock,
+  .backendBlock {
     cursor: pointer;
     transition: all 0.5s ease;
     overflow: hidden;
@@ -139,6 +140,18 @@ const OptionWrapper = styled.section`
     }
     &.active-item {
       background: #faf8ff;
+      .frontend_image_area {
+        opacity: 0.6;
+        filter: blur(2px);
+        -webkit-filter: blur(2px);
+      }
+      .backend_image_area {
+        opacity: 0.6;
+        filter: blur(2px);
+        -webkit-filter: blur(2px);
+      }
+      /* -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px); */
       .desTitleWrapper {
         transform: translateY(0%);
       }
@@ -163,21 +176,22 @@ const OptionWrapper = styled.section`
       }
     }
   }
-  .driverBlock {
+  .backendBlock {
     margin-left: 10px;
-    width: 48%;
-    @media (max-width: 1440px) {
+    width: 100%;
+    /* @media (max-width: 1440px) {
       width: 47%;
-    }
+    } */
     @media (max-width: 480px) {
       width: 100%;
     }
   }
-  .riderBlock {
-    width: calc(48% + 10px);
-    @media (max-width: 1440px) {
+  .frontendBlock {
+    width: 100%;
+    margin-right: 10px;
+    /* @media (max-width: 1440px) {
       width: calc(48% + 10px);
-    }
+    } */
     @media (max-width: 480px) {
       width: 100%;
       margin-top: 15px;

@@ -1,4 +1,5 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React from "react";
+import Page from "../Page";
 import { Modal } from "@redq/reuse-modal";
 import { ApolloProvider } from "@apollo/client";
 import "@redq/reuse-modal/es/index.css";
@@ -94,10 +95,10 @@ export default ({ Component, pageProps }) => {
 
   return (
     <ApolloProvider client={client}>
-      <Fragment>
+      <Page>
         <Modal />
         <Component {...pageProps} />
-      </Fragment>
+      </Page>
     </ApolloProvider>
   );
 };

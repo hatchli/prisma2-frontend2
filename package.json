@@ -12,21 +12,28 @@
   "devDependencies": {
     "@babel/cli": "^7.5.0",
     "cpx": "^1.5.0",
-    "cross-env": "^5.2.0",
+    "cross-env": "^7.0.0",
     "firebase-tools": "7.0.2",
-    "husky": "^3.0.0",
-    "lerna": "^3.15.0",
-    "lint-staged": "^9.1.0",
-    "prettier": "^1.18.2",
-    "rimraf": "^2.6.3"
+    "husky": "^4.2.3",
+    "lerna": "^3.20.2",
+    "lint-staged": "^10.0.7",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.2"
   },
   "workspaces": [
-    "packages/common",
-    "packages/landing",
-    "packages/reusecore"
+    "packages/*"
   ],
   "scripts": {
     "clean": "lerna clean --yes && rimraf node_modules",
+    "clean:build": "lerna exec -- rimraf \"{.next,dist,build,.docz}\"",
+    "dev:shop": "lerna run --parallel shop-dev",
+    "build:shop": "yarn workspace shop build",
+    "serve:shop": "lerna run --parallel start",
+    "dev:admin": "lerna run --parallel admin-dev",
+    "build:admin": "yarn workspace admin build",
+    "serve:admin": "lerna run --parallel serve",
+    "dev:api-shop": "yarn workspace api shop-dev",
+    "dev:api-admin": "yarn workspace api admin-dev",
     "start": "lerna run --parallel dev",
     "preweb": "cpx \"packages/common/src/assets/image/**/*.*\" \"packages/landing/static\" -C",
     "next-dev": "yarn workspace next-landing run dev",

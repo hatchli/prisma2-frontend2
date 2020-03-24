@@ -268,8 +268,8 @@ const PricingSection = ({
         Number(YEARLY_PRICING_TABLE[1].price)
       );
       setBusinessTotal({
-        purchase: Math.round(sumPurchaseBusiness * 100) / 100,
-        subscription: Math.round(sumSubscriptionBusiness * 100) / 100
+        purchase: Number.parseInt(sumPurchaseBusiness),
+        subscription: Number.parseInt(sumSubscriptionBusiness)
       });
     },
     [businessState.purchase.cost],
@@ -287,8 +287,8 @@ const PricingSection = ({
         Number(YEARLY_PRICING_TABLE[0].price)
       );
       setInformationTotal({
-        purchase: Math.round(sumPurchaseInformation * 100) / 100,
-        subscription: Math.round(sumSubscriptionInformation * 100) / 100
+        purchase: Number.parseInt(sumPurchaseInformation),
+        subscription: Number.parseInt(sumSubscriptionInformation)
       });
     },
     [informationState.purchase.cost],
@@ -328,8 +328,8 @@ const PricingSection = ({
         Number(YEARLY_PRICING_TABLE[2].price)
       );
       setEcommerceTotal({
-        purchase: Math.round(sumPurchaseEcommerce * 100) / 100,
-        subscription: Math.round(sumSubscriptionEcommerce * 100) / 100
+        purchase: Number.parseInt(sumPurchaseEcommerce),
+        subscription: Number.parseInt(sumSubscriptionEcommerce)
       });
     },
     [ecommerceState.purchase.cost],
@@ -784,12 +784,12 @@ const PricingSection = ({
                                 />
                                 {refinedData[0].type === "subscription" ? (
                                   <Text
-                                    content={`$${item.cost}`}
+                                    content={`$${Number.parseInt(item.cost)}`}
                                     {...listContentStyle}
                                   />
                                 ) : (
                                   <Text
-                                    content={`$${item.pcost}`}
+                                    content={`$${Number.parseInt(item.pcost)}`}
                                     {...listContentStyle}
                                   />
                                 )}
@@ -1110,12 +1110,14 @@ const PricingSection = ({
                                   />
                                   {pricingTable.type === "subscription" ? (
                                     <Text
-                                      content={`$${item.cost}`}
+                                      content={`$${Number.parseInt(item.cost)}`}
                                       {...listContentStyle}
                                     />
                                   ) : (
                                     <Text
-                                      content={`$${item.pcost}`}
+                                      content={`$${Number.parseInt(
+                                        item.pcost
+                                      )}`}
                                       {...listContentStyle}
                                     />
                                   )}

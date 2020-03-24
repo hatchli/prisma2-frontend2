@@ -1,16 +1,16 @@
-import React from 'react';
-import Link from 'next/link';
-import Fade from 'react-reveal/Fade';
-import Image from 'reusecore/src/elements/Image';
-import Heading from 'reusecore/src/elements/Heading';
-import Text from 'reusecore/src/elements/Text';
+import React from "react";
+import Link from "next/link";
+import Fade from "react-reveal/Fade";
+import Image from "reusecore/src/elements/Image";
+import Heading from "reusecore/src/elements/Heading";
+import Text from "reusecore/src/elements/Text";
 import SectionWrapper, {
   Container,
   ImageWrapper,
-  TextWrapper,
-} from './aboutUs.style';
+  TextWrapper
+} from "./aboutUs.style";
 
-import { aboutData } from 'common/src/data/Interior';
+import { aboutData } from "common/src/data/Interior";
 
 const AboutUs = () => {
   const { thumb_url, title, text, text2 } = aboutData;
@@ -23,7 +23,7 @@ const AboutUs = () => {
       <Container>
         <ImageWrapper>
           <Fade left>
-            <Image src={thumb_url} alt="Interior Landing by RedQ" />
+            <Image src={thumb_url} alt="Interior Landing by Hatchli" />
           </Fade>
         </ImageWrapper>
         <TextWrapper>

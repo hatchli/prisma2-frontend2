@@ -1,19 +1,19 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import Link from 'next/link';
-import Box from 'reusecore/src/elements/Box';
-import Text from 'reusecore/src/elements/Text';
-import Heading from 'reusecore/src/elements/Heading';
-import Logo from 'reusecore/src/elements/UI/Logo';
-import Container from 'common/src/components/UI/Container';
+import React, { Fragment } from "react";
+import PropTypes from "prop-types";
+import Link from "next/link";
+import Box from "reusecore/src/elements/Box";
+import Text from "reusecore/src/elements/Text";
+import Heading from "reusecore/src/elements/Heading";
+import Logo from "reusecore/src/elements/UI/Logo";
+import Container from "common/src/components/UI/Container";
 import FooterWrapper, {
   CurvIcon,
   List,
   ListItem,
-  SocialList,
-} from './footer.style';
+  SocialList
+} from "./footer.style";
 
-import { footerData } from 'common/src/data/Interior';
+import { footerData } from "common/src/data/Interior";
 
 const Footer = ({ row, col, colOne, colTwo }) => {
   const { logo, mail, phone, socialLinks, menuWidgets } = footerData;
@@ -81,7 +81,7 @@ const Footer = ({ row, col, colOne, colTwo }) => {
           </Box>
           {/* End of widgets row */}
           <Box className="row copyright" {...row}>
-            <Text className="text" content="copyright 2019 @RedQ" />
+            <Text className="text" content="copyright 2020 Hatchli Inc" />
             <p>
               Built & designed with
               <svg
@@ -111,7 +111,7 @@ Footer.propTypes = {
   row: PropTypes.object,
   col: PropTypes.object,
   colOne: PropTypes.object,
-  colTwo: PropTypes.object,
+  colTwo: PropTypes.object
 };
 
 // Footer default style
@@ -119,31 +119,31 @@ Footer.defaultProps = {
   // Footer row default style
   row: {
     flexBox: true,
-    flexWrap: 'wrap',
-    ml: '-15px',
-    mr: '-15px',
+    flexWrap: "wrap",
+    ml: "-15px",
+    mr: "-15px"
   },
   // Footer col one style
   colOne: {
-    width: ['100%', '30%', '35%', '28%'],
-    mt: [0, '13px', '0'],
-    mb: ['30px', 0],
-    pl: ['15px', 0],
-    pr: ['15px', '15px', 0],
+    width: ["100%", "30%", "35%", "28%"],
+    mt: [0, "13px", "0"],
+    mb: ["30px", 0],
+    pl: ["15px", 0],
+    pr: ["15px", "15px", 0]
   },
   // Footer col two style
   colTwo: {
-    width: ['100%', '70%', '65%', '72%'],
+    width: ["100%", "70%", "65%", "72%"],
     flexBox: true,
-    flexWrap: 'wrap',
+    flexWrap: "wrap"
   },
   // Footer col default style
   col: {
-    width: ['100%', '50%', '50%', '25%'],
-    pl: '15px',
-    pr: '15px',
-    mb: '30px',
-  },
+    width: ["100%", "50%", "50%", "25%"],
+    pl: "15px",
+    pr: "15px",
+    mb: "30px"
+  }
 };
 
 export default Footer;

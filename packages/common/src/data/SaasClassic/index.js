@@ -86,35 +86,70 @@ export const MONTHLY_PRICING_TABLE = [
     description:
       "Beautiful landing page for small businesses or personal portfolios",
     text: "Beautiful landing page for small businesses or personal portfolios",
-    price: "29.99",
+    price: "49.99",
     priceLabel: "Per month",
     buttonLabel: "Tell Us More",
     url: "#",
     listItems: [
       {
         service: ["Mobile-ready, Responsive Design"],
-        cost: [6],
-        pcost: [600]
+        cost: [9.99],
+        pcost: [9.99 * 24]
       },
       {
-        service: ["Blog Articles"],
-        cost: [14],
-        pcost: [1300]
+        service: ["Dynamic Content (e.g., Blogs / Updates / Notices)"],
+        cost: [49.99],
+        pcost: [49.99 * 24]
       },
       {
         service: ["Collect visitor information (email / phone)"],
-        cost: [10],
-        pcost: [1000]
+        cost: [24.99],
+        pcost: [24.99 * 24]
       },
       {
-        service: ["eCommerce Store "],
-        cost: [25],
-        pcost: [3200]
+        service: ["eCommerce Store & Payment Processing"],
+        cost: [99.99],
+        pcost: [99.99 * 24]
       },
       {
-        service: ["30+ Webmaster Tools"],
-        cost: [2],
-        pcost: [500]
+        service: ["SEO Supported - Google Search Crawler Comptabile"],
+        cost: [14.99],
+        pcost: [14.99 * 24]
+      },
+      {
+        service: ["Soical Media Integration"],
+        cost: [4.99],
+        pcost: [4.99 * 24]
+      },
+      {
+        service: ['Pay-wall / "registered-users only" Content'],
+        cost: [99.99],
+        pcost: [99.99 * 24]
+      },
+      {
+        service: ["Dynamic Map Integration"],
+        cost: [9.99],
+        pcost: [9.99 * 24]
+      },
+      {
+        service: ["Multi-Page Website"],
+        cost: [49.99],
+        pcost: [49.99 * 24]
+      },
+      {
+        service: ["Administrative & User Panel"],
+        cost: [99.99],
+        pcost: [99.99 * 24]
+      },
+      {
+        service: ["Advanced Form Handling"],
+        cost: [24.99],
+        pcost: [24.99 * 24]
+      },
+      {
+        service: ["Automated Email Mailer + External Mail Service Integration"],
+        cost: [24.99],
+        pcost: [24.99 * 24]
       }
     ]
   },
@@ -127,7 +162,7 @@ export const MONTHLY_PRICING_TABLE = [
     type: "subscription",
     description: "Multi-page Website for Small-Large Businesses",
     text: "Multi-page Website for Medium-Large Businesses",
-    price: "59.99",
+    price: "99.99",
     priceLabel: "Per month",
     buttonLabel: "Tell Us More",
     url: "#",
@@ -136,28 +171,58 @@ export const MONTHLY_PRICING_TABLE = [
     listItems: [
       {
         service: ["Mobile-ready, Responsive Design"],
-        cost: [6],
-        pcost: [600]
+        cost: [9.99],
+        pcost: [9.99 * 24]
       },
       {
-        service: ["Blog Articles"],
-        cost: [14],
-        pcost: [1300]
+        service: ["Dynamic Content (e.g., Blogs / Updates / Notices)"],
+        cost: [49.99],
+        pcost: [49.99 * 24]
       },
       {
         service: ["Collect visitor information (email / phone)"],
-        cost: [10],
-        pcost: [1000]
+        cost: [24.99],
+        pcost: [24.99 * 24]
       },
       {
-        service: ["eCommerce Store "],
-        cost: [25],
-        pcost: [3200]
+        service: ["eCommerce Store & Payment Processing"],
+        cost: [99.99],
+        pcost: [99.99 * 24]
       },
       {
-        service: ["30+ Webmaster Tools"],
-        cost: [2],
-        pcost: [500]
+        service: ["SEO Supported - Google Search Crawler Comptabile"],
+        cost: [14.99],
+        pcost: [14.99 * 24]
+      },
+      {
+        service: ["Soical Media Integration"],
+        cost: [4.99],
+        pcost: [4.99 * 24]
+      },
+      {
+        service: ['Pay-wall / "registered-users only" Content'],
+        cost: [99.99],
+        pcost: [99.99 * 24]
+      },
+      {
+        service: ["Dynamic Map Integration"],
+        cost: [9.99],
+        pcost: [9.99 * 24]
+      },
+      {
+        service: ["Administrative & User Panel"],
+        cost: [99.99],
+        pcost: [99.99 * 24]
+      },
+      {
+        service: ["Advanced Form Handling"],
+        cost: [24.99],
+        pcost: [24.99 * 24]
+      },
+      {
+        service: ["Automated Email Mailer + External Mail Service Integration"],
+        cost: [24.99],
+        pcost: [24.99 * 24]
       }
     ]
   },
@@ -170,7 +235,7 @@ export const MONTHLY_PRICING_TABLE = [
     type: "subscription",
     description: "Online Sale and Payment Processing of Products & Services",
     text: "Online Sale and Payment Processing of Products & Services",
-    price: "99.99",
+    price: "149.99",
     priceLabel: "Per month",
     buttonLabel: "Tell Us More",
     url: "#",
@@ -179,28 +244,63 @@ export const MONTHLY_PRICING_TABLE = [
     listItems: [
       {
         service: ["Mobile-ready, Responsive Design"],
-        cost: [6],
-        pcost: [600]
+        cost: [9.99],
+        pcost: [9.99 * 24]
       },
       {
-        service: ["Blog Articles"],
-        cost: [14],
-        pcost: [1300]
+        service: ["Dynamic Content (e.g., Blogs / Updates / Notices)"],
+        cost: [49.99],
+        pcost: [49.99 * 24]
       },
       {
         service: ["Collect visitor information (email / phone)"],
-        cost: [10],
-        pcost: [1000]
+        cost: [24.99],
+        pcost: [24.99 * 24]
       },
       {
-        service: ["eCommerce Store "],
-        cost: [25],
-        pcost: [3200]
+        service: ["Beutiful Landing Page"],
+        cost: [49.99],
+        pcost: [24.99 * 24]
       },
       {
-        service: ["30+ Webmaster Tools"],
-        cost: [2],
-        pcost: [500]
+        service: ["SEO Supported - Google Search Crawler Comptabile"],
+        cost: [14.99],
+        pcost: [14.99 * 24]
+      },
+      {
+        service: ["Soical Media Integration"],
+        cost: [4.99],
+        pcost: [4.99 * 24]
+      },
+      {
+        service: ['Pay-wall / "registered-users only" Content'],
+        cost: [99.99],
+        pcost: [99.99 * 24]
+      },
+      {
+        service: ["Dynamic Map Integration"],
+        cost: [9.99],
+        pcost: [9.99 * 24]
+      },
+      {
+        service: ["Multi-Page Website"],
+        cost: [49.99],
+        pcost: [49.99 * 24]
+      },
+      {
+        service: ["Administrative & User Panel with Dynamic Custom Content"],
+        cost: [99.99],
+        pcost: [99.99 * 24]
+      },
+      {
+        service: ["Advanced Form Handling for Improved Visitor Engagement"],
+        cost: [24.99],
+        pcost: [24.99 * 24]
+      },
+      {
+        service: ["Automated Email Mailer + External Mail Service Integration"],
+        cost: [24.99],
+        pcost: [24.99 * 24]
       }
     ]
   }
@@ -212,35 +312,70 @@ export const YEARLY_PRICING_TABLE = [
     category: "information",
     type: "purchase",
     description: "For a single client or team who need to build website ",
-    price: "1750",
+    price: "1199.99",
     priceLabel: "One time purchase",
     buttonLabel: "Tell Us More",
     url: "#",
     listItems: [
       {
         service: ["Mobile-ready, Responsive Design"],
-        cost: [6],
-        pcost: [600]
+        cost: [9.99],
+        pcost: [9.99 * 24]
       },
       {
-        service: ["Blog Articles"],
-        cost: [14],
-        pcost: [1300]
+        service: ["Dynamic Content (e.g., Blogs / Updates / Notices)"],
+        cost: [49.99],
+        pcost: [49.99 * 24]
       },
       {
         service: ["Collect visitor information (email / phone)"],
-        cost: [10],
-        pcost: [1000]
+        cost: [24.99],
+        pcost: [24.99 * 24]
       },
       {
-        service: ["eCommerce Store "],
-        cost: [25],
-        pcost: [3200]
+        service: ["eCommerce Store & Payment Processing"],
+        cost: [99.99],
+        pcost: [99.99 * 24]
       },
       {
-        service: ["30+ Webmaster Tools"],
-        cost: [2],
-        pcost: [500]
+        service: ["SEO Supported - Google Search Crawler Comptabile"],
+        cost: [14.99],
+        pcost: [14.99 * 24]
+      },
+      {
+        service: ["Soical Media Integration"],
+        cost: [4.99],
+        pcost: [4.99 * 24]
+      },
+      {
+        service: ['Pay-wall / "registered-users only" Content'],
+        cost: [99.99],
+        pcost: [99.99 * 24]
+      },
+      {
+        service: ["Dynamic Map Integration"],
+        cost: [9.99],
+        pcost: [9.99 * 24]
+      },
+      {
+        service: ["Multi-Page Website"],
+        cost: [49.99],
+        pcost: [49.99 * 24]
+      },
+      {
+        service: ["Administrative & User Panel"],
+        cost: [99.99],
+        pcost: [99.99 * 24]
+      },
+      {
+        service: ["Advanced Form Handling"],
+        cost: [24.99],
+        pcost: [24.99 * 24]
+      },
+      {
+        service: ["Automated Email Mailer + External Mail Service Integration"],
+        cost: [24.99],
+        pcost: [24.99 * 24]
       }
     ]
   },
@@ -249,7 +384,7 @@ export const YEARLY_PRICING_TABLE = [
     category: "business",
     type: "purchase",
     description: "For Small teams or group who need to build website ",
-    price: "3400",
+    price: "2399.99",
     priceLabel: "One time purchase",
     buttonLabel: "Tell Us More",
     url: "#",
@@ -258,28 +393,58 @@ export const YEARLY_PRICING_TABLE = [
     listItems: [
       {
         service: ["Mobile-ready, Responsive Design"],
-        cost: [6],
-        pcost: [600]
+        cost: [9.99],
+        pcost: [9.99 * 24]
       },
       {
-        service: ["Blog Articles"],
-        cost: [14],
-        pcost: [1300]
+        service: ["Dynamic Content (e.g., Blogs / Updates / Notices)"],
+        cost: [49.99],
+        pcost: [49.99 * 24]
       },
       {
         service: ["Collect visitor information (email / phone)"],
-        cost: [10],
-        pcost: [1000]
+        cost: [24.99],
+        pcost: [24.99 * 24]
       },
       {
-        service: ["eCommerce Store "],
-        cost: [25],
-        pcost: [3200]
+        service: ["eCommerce Store & Payment Processing"],
+        cost: [99.99],
+        pcost: [99.99 * 24]
       },
       {
-        service: ["30+ Webmaster Tools"],
-        cost: [2],
-        pcost: [500]
+        service: ["SEO Supported - Google Search Crawler Comptabile"],
+        cost: [14.99],
+        pcost: [14.99 * 24]
+      },
+      {
+        service: ["Soical Media Integration"],
+        cost: [4.99],
+        pcost: [4.99 * 24]
+      },
+      {
+        service: ['Pay-wall / "registered-users only" Content'],
+        cost: [99.99],
+        pcost: [99.99 * 24]
+      },
+      {
+        service: ["Dynamic Map Integration"],
+        cost: [9.99],
+        pcost: [9.99 * 24]
+      },
+      {
+        service: ["Administrative & User Panel"],
+        cost: [99.99],
+        pcost: [99.99 * 24]
+      },
+      {
+        service: ["Advanced Form Handling"],
+        cost: [24.99],
+        pcost: [24.99 * 24]
+      },
+      {
+        service: ["Automated Email Mailer + External Mail Service Integration"],
+        cost: [24.99],
+        pcost: [24.99 * 24]
       }
     ]
   },
@@ -288,7 +453,7 @@ export const YEARLY_PRICING_TABLE = [
     category: "ecommerce",
     type: "purchase",
     description: "For Large teams or group who need to build website ",
-    price: "7000",
+    price: "3599.99",
     priceLabel: "One time purchase",
     buttonLabel: "Tell Us More",
     url: "#",
@@ -297,28 +462,63 @@ export const YEARLY_PRICING_TABLE = [
     listItems: [
       {
         service: ["Mobile-ready, Responsive Design"],
-        cost: [6],
-        pcost: [600]
+        cost: [9.99],
+        pcost: [9.99 * 24]
       },
       {
-        service: ["Blog Articles"],
-        cost: [14],
-        pcost: [1300]
+        service: ["Dynamic Content (e.g., Blogs / Updates / Notices)"],
+        cost: [49.99],
+        pcost: [49.99 * 24]
       },
       {
         service: ["Collect visitor information (email / phone)"],
-        cost: [10],
-        pcost: [1000]
+        cost: [24.99],
+        pcost: [24.99 * 24]
       },
       {
-        service: ["eCommerce Store "],
-        cost: [25],
-        pcost: [3200]
+        service: ["Beutiful Landing Page"],
+        cost: [49.99],
+        pcost: [24.99 * 24]
       },
       {
-        service: ["30+ Webmaster Tools"],
-        cost: [2],
-        pcost: [500]
+        service: ["SEO Supported - Google Search Crawler Comptabile"],
+        cost: [14.99],
+        pcost: [14.99 * 24]
+      },
+      {
+        service: ["Soical Media Integration"],
+        cost: [4.99],
+        pcost: [4.99 * 24]
+      },
+      {
+        service: ['Pay-wall / "registered-users only" Content'],
+        cost: [99.99],
+        pcost: [99.99 * 24]
+      },
+      {
+        service: ["Dynamic Map Integration"],
+        cost: [9.99],
+        pcost: [9.99 * 24]
+      },
+      {
+        service: ["Multi-Page Website"],
+        cost: [49.99],
+        pcost: [49.99 * 24]
+      },
+      {
+        service: ["Administrative & User Panel with Dynamic Custom Content"],
+        cost: [99.99],
+        pcost: [99.99 * 24]
+      },
+      {
+        service: ["Advanced Form Handling for Improved Visitor Engagement"],
+        cost: [24.99],
+        pcost: [24.99 * 24]
+      },
+      {
+        service: ["Automated Email Mailer + External Mail Service Integration"],
+        cost: [24.99],
+        pcost: [24.99 * 24]
       }
     ]
   }

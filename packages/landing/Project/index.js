@@ -53,7 +53,7 @@ const Project = () => {
           </GlideCarousel>
 
           <ImageWrapper>
-            <Image src={thumb_url} alt="Interiro landing by RedQ" />
+            <Image src={thumb_url} alt="Interiro landing by Htachli" />
           </ImageWrapper>
         </ProjectWrapper>
       </Container>

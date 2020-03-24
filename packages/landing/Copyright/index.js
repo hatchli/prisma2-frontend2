@@ -1,9 +1,9 @@
-import React from 'react';
-import Link from 'next/link';
-import Text from 'reusecore/src/elements/Text';
-import CopyrightWrapper from './copyright.style';
+import React from "react";
+import Link from "next/link";
+import Text from "reusecore/src/elements/Text";
+import CopyrightWrapper from "./copyright.style";
 
-import { socialProfile } from 'common/src/data/Interior';
+import { socialProfile } from "common/src/data/Interior";
 
 const Copyright = () => {
   return (
@@ -19,7 +19,7 @@ const Copyright = () => {
           </li>
         ))}
       </ul>
-      <Text content="Copyrights 2019 @RedQ Inc" />
+      <Text content="Copyrights 2020 Hatchli Inc" />
     </CopyrightWrapper>
   );
 };

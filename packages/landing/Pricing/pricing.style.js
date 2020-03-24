@@ -316,6 +316,19 @@ export const DonationForm = styled.form`
     }
   }
 `;
+const shake = keyframes`
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(7px);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
 
 export const DonateButton = styled.button`
   display: flex;
@@ -411,19 +424,6 @@ export const PricingTableWrapper = styled.div`
   }
 `;
 
-const shake = keyframes`
-  0% {
-    transform: translateX(0);
-    opacity: 0;
-  }
-  50% {
-    transform: translateX(7px);
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-`;
 
 export const DonateButtonStyle = styled.div`
   width: 100%;

@@ -33,7 +33,7 @@ const dev = "http://localhost:3001/";
 const prod = "https://prisma2-graphql-yoga-shield.now.sh/";
 
 const httpLink = createHttpLink({
-  uri: dev,
+  uri: prod,
   onError: ({ networkError, graphQLErrors }) => {
     console.log("graphQLErrors", graphQLErrors);
     console.log("networkError", networkError);

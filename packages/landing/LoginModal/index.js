@@ -23,8 +23,8 @@ import LogoImage from "common/src/assets/image/hatchli-reduced-logo.svg";
 import LoginImage from "common/src/assets/image/agency/login-bg.jpg";
 import FailedLogin from "common/src/assets/image/mirage-logged-out.svg";
 import SignedInImage from "common/src/assets/image/mirage-message-sent.svg";
-import Loader from "reusecore/src/elements/Loader/index.js";
-import Alert from "reusecore/src/elements/Alert/index";
+import Loader from "reusecore/src/elements/Loader";
+import Alert from "reusecore/src/elements/Alert";
 
 const LoginModal = ({
   row,
@@ -73,12 +73,7 @@ const LoginModal = ({
     }
   ] = useMutation(LOGIN_MUTATION, {
     variables: { email, password },
-    update(
-      cache,
-      {
-        data: { login }
-      }
-    ) {
+    update(cache, { data: { login } }) {
       console.log("login", login);
       console.log("cache", cache);
       console.log("dataLogin", dataLogin);
@@ -106,12 +101,7 @@ const LoginModal = ({
     }
   ] = useMutation(SIGNUP_MUTATION, {
     variables: { name, email: email.email, password },
-    update(
-      cache,
-      {
-        data: { signup }
-      }
-    ) {
+    update(cache, { data: { signup } }) {
       cache.writeQuery({
         query: IS_CURRENTLY_LOGGED_IN,
         data: {

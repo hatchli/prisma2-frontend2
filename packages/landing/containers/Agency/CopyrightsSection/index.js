@@ -1,8 +1,8 @@
-import React from 'react';
-import Link from 'next/link';
-import Text from 'reusecore/src/elements/Text';
-import CopyrightWrapper from './copyrightSection.style';
-import data from 'common/src/data/Agency/';
+import React from "react";
+import Link from "next/link";
+import Text from "reusecore/src/elements/Text";
+import CopyrightWrapper from "./copyrightSection.style";
+import data from "common/src/data/Agency/";
 
 const CopyrightSection = () => {
   return (
@@ -18,7 +18,7 @@ const CopyrightSection = () => {
           </li>
         ))}
       </ul>
-      <Text content="Copyrights 2019 @RedQ Inc" />
+      <Text content="Copyrights 2020 Hatchli Inc" />
     </CopyrightWrapper>
   );
 };

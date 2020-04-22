@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import './flaticon.css';
+import { createGlobalStyle } from "styled-components";
+import "./flaticon.css";
 
 export const ResetCSS = createGlobalStyle`
   ::selection {
@@ -46,6 +46,7 @@ export const ResetCSS = createGlobalStyle`
   div {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
   }
 

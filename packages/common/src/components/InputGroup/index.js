@@ -1,12 +1,12 @@
-import React, { useState, useRef } from 'react';
-import PropTypes from 'prop-types';
-import useOnClickOutside from 'common/src/hooks/useOnClickOutside';
+import React, { useState, useRef } from "react";
+import PropTypes from "prop-types";
+import useOnClickOutside from "common/src/hooks/useOnClickOutside";
 import ComponentWrapper, {
   Input,
   SelectWrapper,
   CurrentOption,
   Dropdown,
-} from './inputGroup.style';
+} from "./inputGroup.style";
 
 const InputGroup = ({
   className,
@@ -17,11 +17,11 @@ const InputGroup = ({
   inputOnChange,
   selectOnUpdate,
   selectedValue,
-  currency,
+  selectionPlaceholder,
 }) => {
   const [state, setState] = useState({
     open: false,
-    currency,
+    selectionPlaceholder,
     selectedValue,
   });
 
@@ -32,11 +32,11 @@ const InputGroup = ({
     });
   };
 
-  const handleSelectedData = item => {
+  const handleSelectedData = (item) => {
     setState({
       ...state,
       open: false,
-      currency: item.title,
+      selectionPlaceholder: item.title,
       selectedValue: item.value,
     });
     selectOnUpdate(item.value);
@@ -45,13 +45,13 @@ const InputGroup = ({
   const dropdownRef = useRef(null);
   useOnClickOutside(dropdownRef, () => setState({ ...state, open: false }));
 
-  const addAllClasses = ['input_group'];
+  const addAllClasses = ["input_group"];
   if (className) {
     addAllClasses.push(className);
   }
 
   return (
-    <ComponentWrapper className={addAllClasses.join(' ')}>
+    <ComponentWrapper className={addAllClasses.join(" ")}>
       <Input
         type={inputType}
         value={inputValue}
@@ -62,7 +62,7 @@ const InputGroup = ({
       />
       <SelectWrapper className="select_wrapper">
         <CurrentOption className="current_option" onClick={handleDropdown}>
-          <span className="text">{state.currency}</span>
+          <span className="text">{state.selectionPlaceholder}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="14.994"
@@ -77,15 +77,15 @@ const InputGroup = ({
           </svg>
         </CurrentOption>
         <Dropdown
-          className={`dropdown ${state.open ? 'active' : 'hide'}`}
+          className={`dropdown ${state.open ? "active" : "hide"}`}
           ref={dropdownRef}
         >
-          {selectOptions.map(item => (
+          {selectOptions.map((item) => (
             <li
               className={
                 state.selectedValue === item.value.toLowerCase()
-                  ? 'selected'
-                  : ''
+                  ? "selected"
+                  : ""
               }
               key={`option_key${item.id}`}
               data={item.value.toLowerCase()}
@@ -104,13 +104,13 @@ InputGroup.propTypes = {
   /** className of the InputGroup. */
   className: PropTypes.string,
   /** inputType prop for input field type. This should be a number or text. */
-  inputType: PropTypes.oneOf(['number', 'text']),
+  inputType: PropTypes.oneOf(["number", "text"]),
   /** placeholder text for input field type. */
   placeholder: PropTypes.string,
   /** Call back function for inout onChange event. */
   inputOnChange: PropTypes.func,
   /** currency prop shoude be a string with currency name and symbol. */
-  currency: PropTypes.string,
+  selectionPlaceholder: PropTypes.string,
   /** selectedValue pron shoube be a currency string without symbol but in lowercase. */
   selectedValue: PropTypes.string,
   /** selectOptions prop contain a set of data in array of object form. It has 3 properties id, value and title. */
@@ -120,7 +120,7 @@ InputGroup.propTypes = {
 };
 
 InputGroup.defaultProps = {
-  inputType: 'number',
+  inputType: "number",
   selectOptions: [],
   inputOnChange: () => {},
   selectOnUpdate: () => {},

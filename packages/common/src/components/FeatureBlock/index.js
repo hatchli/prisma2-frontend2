@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import Fade from "react-reveal/Fade";
 import FeatureBlockWrapper, {
   IconWrapper,
   ContentWrapper,
-  ButtonWrapper,
-} from './featureBlock.style';
+  ButtonWrapper
+} from "./featureBlock.style";
 
 const FeatureBlock = ({
   className,
@@ -12,6 +13,7 @@ const FeatureBlock = ({
   title,
   button,
   description,
+  details,
   iconPosition,
   additionalContent,
   wrapperStyle,
@@ -20,8 +22,31 @@ const FeatureBlock = ({
   btnWrapperStyle,
   ...props
 }) => {
+  const [menuState, setMenuState] = useState({
+    show: false
+  });
+
+  useEffect(() => {
+    window.addEventListener("click", handleDocumentClick);
+    return () => {
+      window.removeEventListener("click", handleDocumentClick);
+    };
+  });
+
+  const handleToggle = () => {
+    setMenuState(prevState => ({
+      ...menuState,
+      show: !prevState.show
+    }));
+  };
+
+  const handleDocumentClick = () => {
+    if (menuState.show) {
+      handleToggle();
+    }
+  };
   // Add all classs to an array
-  const addAllClasses = ['feature__block'];
+  const addAllClasses = ["feature__block"];
 
   // Add icon position class
   if (iconPosition) {
@@ -42,7 +67,8 @@ const FeatureBlock = ({
 
   return (
     <FeatureBlockWrapper
-      className={addAllClasses.join(' ')}
+      onClick={handleToggle}
+      className={addAllClasses.join(" ")}
       {...wrapperStyle}
       {...props}
     >
@@ -53,16 +79,24 @@ const FeatureBlock = ({
           <ContentWrapper className="content__wrapper" {...contentStyle}>
             {title}
             {description}
-            {button && (
-              <ButtonWrapper className="button__wrapper" {...btnWrapperStyle}>
-                {button}
-              </ButtonWrapper>
+            {menuState.show && (
+              <>
+                {details}
+                {button && (
+                  <ButtonWrapper
+                    className="button__wrapper"
+                    {...btnWrapperStyle}
+                  >
+                    {button}
+                  </ButtonWrapper>
+                )}
+              </>
             )}
           </ContentWrapper>
           {additionalContent}
         </Fragment>
       ) : (
-        ''
+        ""
       )}
     </FeatureBlockWrapper>
   );
@@ -78,11 +112,14 @@ FeatureBlock.propTypes = {
   /** description prop contain a react component. You can use our Text component from reusecore */
   description: PropTypes.element,
 
+  /** details */
+  details: PropTypes.element,
+
   /** button prop contain a react component. You can use our Button component from reusecore */
   button: PropTypes.element,
 
   /** Set icon position of the FeatureBlock */
-  iconPosition: PropTypes.oneOf(['top', 'left', 'right']),
+  iconPosition: PropTypes.oneOf(["top", "left", "right"]),
 
   /** wrapperStyle prop contain these style system props:  display, flexWrap, width, height, alignItems,
    * justifyContent, position, overflow, space, color, borders, borderColor, boxShadow and borderRadius. */
@@ -97,11 +134,11 @@ FeatureBlock.propTypes = {
 
   /** btnWrapperStyle prop contain these style system props: display, space, alignItems,
    * flexDirection and justifyContent. */
-  btnWrapperStyle: PropTypes.object,
+  btnWrapperStyle: PropTypes.object
 };
 
 FeatureBlock.defaultProps = {
-  iconPosition: 'top',
+  iconPosition: "top"
 };
 
 export default FeatureBlock;

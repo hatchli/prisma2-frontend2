@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer, useRef } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import { useQuery, useMutation } from "@apollo/client";
-import { EMAIL_CONSULT } from "../MutationsQueries";
+import { EMAIL_CONSULT } from "common/src/MutationsQueries";
 import { useWindowSize } from "reusecore/src/hooks";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Box from "reusecore/src/elements/Box";

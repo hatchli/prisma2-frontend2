@@ -5,18 +5,11 @@ import error from "common/src/assets/image/error.svg";
 import success from "common/src/assets/image/success.svg";
 
 const LoginModalWrapper = styled.div`
-  width: 80%;
-  margin: 71px auto;
+  width: 100%;
+  margin: 0;
   border-radius: 5px;
   overflow: hidden;
   background-color: ${themeGet("colors.white", "#ffffff")};
-  @media only screen and (min-width: 1201px) {
-    max-width: 1170px;
-    width: 100%;
-  }
-  @media only screen and (max-width: 667px) {
-    width: 100%;
-  }
   .col {
     position: relative;
     .patternImage {
@@ -25,15 +18,17 @@ const LoginModalWrapper = styled.div`
       height: 100%;
       object-fit: cover;
     }
-    @media only screen and (max-width: 991px) {
-      width: 100%;
-      &.imageCol {
-        display: none;
-      }
+    width: 100%;
+    &.imageCol {
+      display: none;
     }
   }
   .reusecore__button {
     background-color: transparent;
+    color: ${themeGet("colors.secondary")};
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.052);
+    margin: 0 auto;
     &.default {
       background-color: ${themeGet("colors.primary", "#10ac84")};
       transition: all 0.3s ease;
@@ -71,12 +66,7 @@ const LoginModalWrapper = styled.div`
       }
     }
     .rc-tabs-tabpane {
-      padding-left: 15px;
-      padding-bottom: 15px;
-      padding-right: 15px;
-      @media (min-width: 1200px) {
-        min-height: 560px;
-      }
+      padding: 15px;
     }
     .google-login__btn {
       width: 100%;

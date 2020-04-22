@@ -7,7 +7,7 @@ import Button from "reusecore/src/elements/Button";
 import Input from "reusecore/src/elements/Input";
 import Container from "common/src/components/UI/Container";
 import { useMutation } from "@apollo/client";
-import { EMAIL_CONSULT } from "../MutationsQueries";
+import { EMAIL_CONSULT } from "common/src/MutationsQueries";
 
 import NewsletterWrapper, { ContactFormWrapper } from "./newsletter.style";
 import { border } from "styled-system";

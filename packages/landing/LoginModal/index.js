@@ -1,11 +1,12 @@
-import React, { Fragment, useState } from "react";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import React, { Fragment, useState, useContext } from "react";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   LOGIN_MUTATION,
   SIGNUP_MUTATION,
-  IS_LOGGED_IN,
-  IS_CURRENTLY_LOGGED_IN
-} from "../MutationsQueries";
+  IS_CURRENTLY_LOGGED_IN,
+} from "common/src/MutationsQueries";
+import { AuthContext } from "common/src/contexts/AuthContext";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import Tabs, { TabPane } from "rc-tabs";
 import TabContent from "rc-tabs/lib/TabContent";
@@ -14,18 +15,16 @@ import Box from "reusecore/src/elements/Box";
 import Text from "reusecore/src/elements/Text";
 import Heading from "reusecore/src/elements/Heading";
 import Input from "reusecore/src/elements/Input";
-import CheckBox from "reusecore/src/elements/Checkbox/index";
 import Button from "reusecore/src/elements/Button";
+import Icon from "react-icons-kit";
 import Image from "reusecore/src/elements/Image";
 import LoginModalWrapper from "./loginModal.style";
 import "rc-tabs/assets/index.css";
-import LogoImage from "common/src/assets/image/hatchli-reduced-logo.svg";
-import LoginImage from "common/src/assets/image/agency/login-bg.jpg";
-import FailedLogin from "common/src/assets/image/mirage-logged-out.svg";
-import SignedInImage from "common/src/assets/image/mirage-message-sent.svg";
-import Loader from "reusecore/src/elements/Loader";
-import Alert from "reusecore/src/elements/Alert";
-
+// import LogoImage from "common/src/assets/image/hatchli-reduced-logo.svg";
+import Loader from "reusecore/src/elements/Loader/index.js";
+import Alert from "reusecore/src/elements/Alert/index";
+import { check } from "react-icons-kit/feather/check";
+import { slash } from "react-icons-kit/feather/slash";
 const LoginModal = ({
   row,
   col,
@@ -35,15 +34,22 @@ const LoginModal = ({
   contentWrapper,
   outlineBtnStyle,
   descriptionStyle,
-  warningWithBg
+  warningWithBg,
 }) => {
+  const wait = (amount = 0) =>
+    new Promise((resolve) => setTimeout(resolve, amount));
+  const router = useRouter();
+  if (!router) {
+    return null;
+  }
+  const { dispatch } = useContext(AuthContext);
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
   const [email, setEmail] = useState({ email: "", valid: "" });
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-  const handleOnChange = e => {
+  const handleOnChange = (e) => {
     let value = "";
     console.log(e);
     if (e.match(emailRegex)) {
@@ -60,7 +66,6 @@ const LoginModal = ({
     }
   };
 
-  const loggedIn = useQuery(IS_LOGGED_IN);
   const userCurrentlyLoggedIn = useQuery(IS_CURRENTLY_LOGGED_IN);
 
   const [
@@ -69,10 +74,18 @@ const LoginModal = ({
       loading: loadingLogin,
       error: errorLogin,
       data: dataLogin,
-      client: clientLogin
-    }
+      client: clientLogin,
+    },
   ] = useMutation(LOGIN_MUTATION, {
     variables: { email, password },
+    onCompleted: () => {
+      dispatch({
+        type: "AUTH",
+      });
+      wait(500).then(() => {
+        router.push("/account");
+      });
+    },
     update(cache, { data: { login } }) {
       console.log("login", login);
       console.log("cache", cache);
@@ -84,11 +97,12 @@ const LoginModal = ({
             name: login.user.name,
             user_id: login.user.user_id,
             email: login.user.email,
-            token: login.token
-          }
-        }
+            token: login.token,
+            role: login.user.role,
+          },
+        },
       });
-    }
+    },
   });
 
   const [
@@ -97,10 +111,15 @@ const LoginModal = ({
       loading: loadingSignup,
       error: errorSignup,
       data: dataSignup,
-      client: clientSignup
-    }
+      client: clientSignup,
+    },
   ] = useMutation(SIGNUP_MUTATION, {
     variables: { name, email: email.email, password },
+    onCompleted: () => {
+      dispatch({
+        type: "INAUTH",
+      });
+    },
     update(cache, { data: { signup } }) {
       cache.writeQuery({
         query: IS_CURRENTLY_LOGGED_IN,
@@ -109,125 +128,93 @@ const LoginModal = ({
             name: signup.user.name,
             user_id: signup.user.user_id,
             email: signup.user.email,
-            token: signup.token
-          }
-        }
+            token: signup.token,
+            role: signup.user.role,
+          },
+        },
       });
     },
     onError(error) {
       console.log("error", error);
       console.log("name", name, "email", email, "password", password);
-    }
+    },
   });
 
   const LoginButtonGroup = () => {
     return (
-      <Fragment>
-        {loadingLogin ? (
-          <Loader />
-        ) : (
-          <Button
-            className="default"
-            title="LOGIN"
-            onClick={() => {
-              login().then();
-            }}
-            {...btnStyle}
-          />
-        )}
-        <Button
-          title="Forget Password"
-          variant="textButton"
-          {...outlineBtnStyle}
-        />
-      </Fragment>
+      <Button
+        className="default"
+        title="LOGIN"
+        isLoading={loadingLogin}
+        icon={
+          dataLogin ? (
+            <Icon
+              icon={check}
+              style={{ color: "#030b16" }}
+              // size={22}
+            />
+          ) : errorLogin ? (
+            <Icon
+              icon={slash}
+              style={{ color: "#030b16" }}
+              // size={22}
+            />
+          ) : null
+        }
+        iconPosition="right"
+        onClick={() => login()}
+        {...btnStyle}
+      />
     );
   };
   const SignupButtonGroup = () => (
     <Fragment>
-      {loadingSignup ? (
-        <Loader />
-      ) : (email.valid === "invalid") | (email.valid == "") ? (
-        <Button
-          className="default"
-          title="REGISTER"
-          disabled
-          onClick={() => signup()}
-          {...btnStyle}
-        />
-      ) : (
-        <Button
-          className="default"
-          title="REGISTER"
-          onClick={() => signup()}
-          {...btnStyle}
-        />
-      )}
+      <Button
+        className="default"
+        title="REGISTER"
+        isLoading={loadingSignup}
+        // disabled={email.valid === "invalid" || email.valid == ""}
+        disabled={dataSignup}
+        icon={
+          dataSignup ? (
+            <Icon
+              icon={check}
+              style={{ color: "#030b16" }}
+              // size={22}
+            />
+          ) : errorSignup ? (
+            <Icon
+              icon={slash}
+              style={{ color: "#030b16" }}
+              // size={22}
+            />
+          ) : null
+        }
+        iconPosition="right"
+        onClick={() => signup()}
+        {...btnStyle}
+      />
     </Fragment>
   );
 
   return (
     <LoginModalWrapper>
       <Box className="row" {...row}>
-        <Box className="col imageCol" {...col}>
-          <Image className="patternImage" src={LoginImage} alt="Login Banner" />
-        </Box>
         <Box className="col tabCol" {...col}>
           <Box {...contentWrapper}>
-            <Image src={LogoImage} {...logoStyle} alt="Logo" />
+            {/* <Image src={LogoImage} {...logoStyle} alt="Logo" /> */}
             <Tabs
-              defaultActiveKey="registerForm"
+              defaultActiveKey="loginForm"
               renderTabBar={() => <ScrollableInkTabBar />}
               renderTabContent={() => <TabContent />}
             >
               <TabPane tab="REGISTER" key="registerForm">
-                {loadingSignup && (
-                  <Heading content="Loading..." {...titleStyle} />
-                )}
-                {errorSignup && (
-                  <>
-                    <Alert>
-                      {console.log(errorSignup)}
-                      {errorSignup.graphQLErrors.map(({ message }, i) => (
-                        <span key={i}>{message}</span>
-                      ))}
-                    </Alert>
-                    <Text
-                      content="Please signup with your personal account information."
-                      {...descriptionStyle}
-                    />
-                  </>
-                )}
-                {!loadingSignup &&
-                  userCurrentlyLoggedIn.data.currentUser === null && (
-                    <>
-                      <Heading content="Register" {...titleStyle} />
-                      <Text
-                        content="Please signup with your personal account information."
-                        {...descriptionStyle}
-                      />
-                    </>
-                  )}
-                {!loadingSignup &&
-                  !errorSignup &&
-                  userCurrentlyLoggedIn.data.currentUser !== null && (
-                    <>
-                      <Heading
-                        content={`Welcome ${userCurrentlyLoggedIn.data.currentUser.name}!`}
-                        {...titleStyle}
-                      />
-                      <Text
-                        content={`Not ${userCurrentlyLoggedIn.data.currentUser.name}? Register below!`}
-                        {...descriptionStyle}
-                      />
-                    </>
-                  )}
                 <Input
                   isMaterial
                   label="Full Name"
                   inputType="text"
                   required={true}
-                  onChange={value => setName(value)}
+                  onChange={(value) => setName(value)}
                 />
                 <Input
                   inputType="email"
@@ -239,7 +226,7 @@ const LoginModal = ({
                 />
                 <Input
                   inputType="password"
-                  onChange={value => setPassword(value)}
+                  onChange={(value) => setPassword(value)}
                   isMaterial
                   label="Password"
                   required={true}
@@ -249,61 +236,23 @@ const LoginModal = ({
                 </div>
               </TabPane>
               <TabPane tab="LOGIN" key="loginForm">
-                {loadingLogin ? (
-                  <Heading content="Loading" {...titleStyle} />
-                ) : errorLogin ? (
-                  <Alert>
-                    {errorLogin.graphQLErrors.map(({ message }, i) => (
-                      <span key={i}>{message}</span>
-                    ))}
-                  </Alert>
-                ) : !errorLogin &&
-                  userCurrentlyLoggedIn.data.currentUser !== null ? (
-                  <Heading
-                    content={userCurrentlyLoggedIn.data.currentUser.name}
-                    {...titleStyle}
+                <>
+                  <Input
+                    inputType="email"
+                    onChange={(value) => setEmail(value)}
+                    isMaterial
+                    label="Email Address"
                   />
-                ) : errorLogin ? (
-                  <span></span>
-                ) : (
-                  <Heading content="Please Login" {...titleStyle} />
-                )}
-                {(errorLogin ||
-                  errorSignup ||
-                  userCurrentlyLoggedIn.data.currentUser === null) && (
-                  <Text
-                    content="Please login with your personal account information."
-                    {...descriptionStyle}
+                  <Input
+                    inputType="password"
+                    onChange={(value) => setPassword(value)}
+                    isMaterial
+                    label="Password"
                   />
-                )}
-                {userCurrentlyLoggedIn.data.currentUser === null ? (
-                  <>
-                    <Input
-                      inputType="email"
-                      onChange={value => setEmail(value)}
-                      isMaterial
-                      label="Email Address"
-                    />
-                    <Input
-                      inputType="password"
-                      onChange={value => setPassword(value)}
-                      isMaterial
-                      label="Password"
-                    />
-                    <CheckBox
-                      id="remember"
-                      htmlFor="remember"
-                      labelText="Remember Me"
-                    />
-                    <div>
-                      <LoginButtonGroup />
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <Image src={SignedInImage} />
-                  </>
-                )}
+                  <div>
+                    <LoginButtonGroup />
+                  </div>
+                </>
               </TabPane>
             </Tabs>
           </Box>
@@ -322,7 +271,7 @@ LoginModal.propTypes = {
   hintTextStyle: PropTypes.object,
   contentWrapper: PropTypes.object,
   descriptionStyle: PropTypes.object,
-  googleButtonStyle: PropTypes.object
+  googleButtonStyle: PropTypes.object,
 };
 
 // LoginModal default style
@@ -330,17 +279,17 @@ LoginModal.defaultProps = {
   // Team member row default style
   row: {
     flexBox: true,
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
   // Team member col default style
   col: {
-    width: [1, 1 / 2]
+    width: [1],
   },
   // Default logo size
   logoStyle: {
     width: "auto",
     height: "80px",
-    ml: "15px"
+    ml: "15px",
   },
   // Title default style
   titleStyle: {
@@ -349,7 +298,7 @@ LoginModal.defaultProps = {
     color: "#20201D",
     letterSpacing: "-0.025em",
     mt: "35px",
-    mb: "10px"
+    mb: "10px",
   },
   // Description default style
   descriptionStyle: {
@@ -358,33 +307,33 @@ LoginModal.defaultProps = {
     lineHeight: "26px",
     letterSpacing: "-0.025em",
     mb: "23px",
-    ml: "1px"
+    ml: "1px",
   },
   // Content wrapper style
   contentWrapper: {
-    pt: ["32px", "56px"],
-    pl: ["17px", "32px", "38px", "40px", "56px"],
+    pt: ["0px"],
+    pl: ["17px"],
     pr: "32px",
-    pb: ["32px", "56px"]
+    pb: ["32px"],
   },
   // Default button style
   btnStyle: {
     minWidth: "156px",
     fontSize: "14px",
-    fontWeight: "500"
+    fontWeight: "500",
   },
   // Outline button outline style
   outlineBtnStyle: {
     minWidth: "156px",
     fontSize: "14px",
     fontWeight: "500",
-    color: "#10ac84"
+    color: "#10ac84",
   },
   // Google button style
   googleButtonStyle: {
     bg: "#ffffff",
-    color: "#343D48"
-  }
+    color: "#343D48",
+  },
 };
 
 export default LoginModal;

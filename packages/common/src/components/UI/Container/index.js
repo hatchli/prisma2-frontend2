@@ -5,25 +5,24 @@ const Container = ({
   children,
   className,
   fullWidth,
-  mobileGutter,
   noGutter,
+  mobileGutter,
   width,
-  id,
 }) => {
+  // Add all classs to an array
   const addAllClasses = ['container'];
-
+  // className prop checking
   if (className) {
     addAllClasses.push(className);
   }
 
   return (
     <ContainerWrapper
-      id={id}
       className={addAllClasses.join(' ')}
       fullWidth={fullWidth}
       noGutter={noGutter}
-      mobileGutter={mobileGutter}
       width={width}
+      mobileGutter={mobileGutter}
     >
       {children}
     </ContainerWrapper>

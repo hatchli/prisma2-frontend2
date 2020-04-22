@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const FooterWrapper = styled.footer`
   position: relative;
@@ -61,7 +61,7 @@ export const Newsletter = styled.div`
   }
   .reusecore__button {
     font-weight: 700;
-    font-family: 'Raleway', sans-serif;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 `;
 

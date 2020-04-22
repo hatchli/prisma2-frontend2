@@ -1,6 +1,6 @@
 {
-  "name": "prisma2-frontend-project",
-  "description": "Proof of concept",
+  "name": "myodesign",
+  "description": "MyoDesign",
   "version": "3.2.0",
   "private": true,
   "author": "Wade Lees",
@@ -36,7 +36,7 @@
     "dev:api-admin": "yarn workspace api admin-dev",
     "start": "lerna run --parallel dev",
     "preweb": "cpx \"packages/common/src/assets/image/**/*.*\" \"packages/landing/static\" -C",
-    "next-dev": "yarn workspace next-landing run dev",
+    "next-dev": "yarn workspace next-landing run dev -p 7779",
     "next-build": "rimraf dist && yarn workspace next-landing run build",
     "next-start": "yarn workspace next-landing run start",
     "next-export": "yarn workspace next-landing run export",
@@ -70,6 +70,6 @@
     ]
   },
   "dependencies": {
-    "next": "^9.2.2-canary.18"
+    "polished": "^3.4.4"
   }
 }

@@ -1,134 +1,88 @@
 import React, { useContext } from "react";
+import Link from "next/link";
 import PropTypes from "prop-types";
-import { openModal, closeModal } from "@redq/reuse-modal";
-import { Icon } from "react-icons-kit";
-import { androidClose } from "react-icons-kit/ionicons/androidClose";
 import NavbarWrapper from "reusecore/src/elements/Navbar";
 import Drawer from "reusecore/src/elements/Drawer";
 import Button from "reusecore/src/elements/Button";
 import Logo from "reusecore/src/elements/UI/Logo";
+import Box from "reusecore/src/elements/Box";
 import HamburgMenu from "common/src/components/HamburgMenu";
-import ScrollSpyMenu from "common/src/components/ScrollSpyMenu";
+import Container from "common/src/components/UI/Container";
 import { DrawerContext } from "common/src/contexts/DrawerContext";
-import { Container } from "./navbar.style";
-import SearchPanel from "../SearchPanel";
-import LoginModal from "../LoginModal";
-import Copyright from "../Copyright";
 
-import { menuData } from "common/src/data/Interior";
-import logo from "common/src/assets/image/hatchli-reduced-logo.svg";
+import { MENU_ITEMS } from "common/src/data/Portfolio/data";
+import ScrollSpyMenu from "common/src/components/ScrollSpyMenu";
+import LogoImageAlt from "common/src/assets/image/logo.png";
+import logo from "common/src/assets/image/logo-alt.png";
 
-const CloseModalButton = () => (
-  <Button
-    className="modalCloseBtn"
-    variant="fab"
-    onClick={() => closeModal()}
-    icon={<i className="flaticon-plus-symbol" />}
-  />
-);
+const cheight = ["60px", "80px", "100px", "100px", "140px", "180px"];
 
-const CloseModalButtonAlt = () => (
-  <Button
-    className="modalCloseBtn alt"
-    variant="fab"
-    onClick={() => closeModal()}
-    icon={<i className="flaticon-plus-symbol" />}
-  />
-);
+const dynamic = ["flex-end", "flex-end", "flex-end", "center", "flex-end"];
 
-const Navbar = ({ navbarStyle, logoStyle }) => {
+const Navbar = ({
+  navbarStyle,
+  linksBox,
+  logoStyle,
+  button,
+  row,
+  menuWrapper,
+  ulStyle,
+}) => {
   const { state, dispatch } = useContext(DrawerContext);
 
-  const handleSearchModal = () => {
-    openModal({
-      config: {
-        className: "search-modal",
-        disableDragging: true,
-        width: "100%",
-        height: "100%",
-        animationFrom: { transform: "translateY(100px)" },
-        animationTo: { transform: "translateY(0)" }, //
-        transition: {
-          mass: 1,
-          tension: 180,
-          friction: 26
-        }
-      },
-      component: SearchPanel,
-      componentProps: {},
-      closeComponent: CloseModalButtonAlt,
-      closeOnClickOutside: false
-    });
-  };
-
-  const handleLoginModal = () => {
-    openModal({
-      config: {
-        className: "login-modal",
-        disableDragging: true,
-        width: "100%",
-        height: "100%",
-        animationFrom: { transform: "translateY(100px)" },
-        animationTo: { transform: "translateY(0)" },
-        transition: {
-          mass: 1,
-          tension: 180,
-          friction: 26
-        }
-      },
-      component: LoginModal,
-      componentProps: {},
-      closeComponent: CloseModalButton,
-      closeOnClickOutside: false
-    });
-  };
-
+  // Toggle drawer
   const toggleHandler = () => {
     dispatch({
-      type: "TOGGLE"
+      type: "TOGGLE",
     });
   };
 
   return (
-    <NavbarWrapper {...navbarStyle}>
-      <Container>
-        <Logo href="/" logoSrc={logo} title="Interior" logoStyle={logoStyle} />
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <Button
-            variant="textButton"
-            onClick={handleSearchModal}
-            icon={<i className="flaticon-magnifying-glass" />}
-            aria-label="search button"
+    <NavbarWrapper {...navbarStyle} className="portfolio_navbar">
+      <Container noGutter mobileGutter width="1200px">
+        <Box {...row}>
+          <Logo
+            href="/"
+            logoSrc={logo}
+            title="Portfolio"
+            logoStyle={logoStyle}
+            className="main-logo"
           />
-          <Button
-            variant="textButton"
-            onClick={handleLoginModal}
-            icon={<i className="flaticon-user" />}
-            aria-label="registration button"
-          />
-          <Drawer
-            width="420px"
-            placement="right"
-            drawerHandler={<HamburgMenu />}
-            open={state.isOpen}
-            toggleHandler={toggleHandler}
-          >
-            <button
-              type="button"
-              className={state.isOpen ? "active" : ""}
-              onClick={toggleHandler}
-              aria-label="drawer toggle button"
-            >
-              <Icon icon={androidClose} />
-            </button>
-            <ScrollSpyMenu
-              menuItems={menuData}
-              drawerClose={true}
-              offset={-100}
-            />
-            <Copyright />
-          </Drawer>
-        </div>
+          <Box {...linksBox}>
+            <Box {...menuWrapper}>
+              <ScrollSpyMenu
+                style={ulStyle}
+                className="main_menu"
+                menuItems={MENU_ITEMS}
+                offset={-70}
+              />
+              {/* <Link href="#">
+                <a className="navbar_button">
+                  <Button {...button} title="BOOK A CALL" />
+                </a>
+              </Link> */}
+              <Drawer
+                width="420px"
+                placement="right"
+                drawerHandler={<HamburgMenu barColor="#3444f1" />}
+                open={state.isOpen}
+                toggleHandler={toggleHandler}
+              >
+                <ScrollSpyMenu
+                  className="mobile_menu"
+                  menuItems={MENU_ITEMS}
+                  drawerClose={true}
+                  offset={-100}
+                />
+                <Link href="#">
+                  <a className="navbar_drawer_button">
+                    <Button {...button} title="BOOK A CALL" />
+                  </a>
+                </Link>
+              </Drawer>
+            </Box>
+          </Box>
+        </Box>
       </Container>
     </NavbarWrapper>
   );
@@ -136,17 +90,54 @@ const Navbar = ({ navbarStyle, logoStyle }) => {
 
 Navbar.propTypes = {
   navbarStyle: PropTypes.object,
-  logoStyle: PropTypes.object
+  logoStyle: PropTypes.object,
+  button: PropTypes.object,
+  row: PropTypes.object,
+  menuWrapper: PropTypes.object,
+  linksBox: PropTypes.object,
+  ulStyle: PropTypes.object,
 };
 
 Navbar.defaultProps = {
   navbarStyle: {
-    minHeight: "70px"
+    minHeight: cheight,
+    display: "block",
+  },
+  ulStyle: {
+    display: "flex",
+    alignItems: "center",
+  },
+  row: {
+    flexBox: true,
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    height: cheight,
+  },
+  linksBox: {
+    flexBox: true,
+    justifyContent: "space-between",
+    width: "100%",
   },
   logoStyle: {
-    width: "auto",
-    height: "50px"
-  }
+    maxWidth: ["60px", "75px", "90px", "110px", "140px", "180px"],
+    padding: "5px 0",
+  },
+  button: {
+    type: "button",
+    fontSize: "16px",
+    pl: "0",
+    pr: "0",
+    colors: "primary",
+    minHeight: "auto",
+  },
+  menuWrapper: {
+    flexBox: true,
+    alignItems: "center",
+    height: cheight,
+    width: "100%",
+    justifyContent: dynamic,
+  },
 };
 
 export default Navbar;

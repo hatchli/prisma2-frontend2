@@ -358,41 +358,41 @@
 //   image: happyKids
 // };
 
-// /* ------------------------------------ */
-// // Donation form data
-// /* ------------------------------------ */
-// export const paymentPolicy = [
-//   {
-//     id: 1,
-//     title: "One Time",
-//     value: "oneTime",
-//     text: "One Time donation given"
-//   },
-//   {
-//     id: 2,
-//     title: "Ongoing",
-//     value: "ongoing",
-//     text: "Everymonth donation given"
-//   }
-// ];
+/* ------------------------------------ */
+// Donation form data
+/* ------------------------------------ */
+export const coaching = [
+  {
+    id: 1,
+    title: "In Person Coaching",
+    value: "IN_PERSON",
+    text: "I help you in person in toronto",
+  },
+  {
+    id: 2,
+    title: "Remote Coaching",
+    value: "REMOTE",
+    text: "I help you remotely",
+  },
+];
 
-// export const currencyOptions = [
-//   {
-//     id: 1,
-//     value: "usd",
-//     title: "$ USD"
-//   },
-//   {
-//     id: 2,
-//     value: "gbp",
-//     title: "£ GBP"
-//   },
-//   {
-//     id: 3,
-//     value: "cny",
-//     title: "¥ CNY"
-//   }
-// ];
+export const contactOptions = [
+  {
+    id: 1,
+    value: "TEXT",
+    title: "Text Me",
+  },
+  {
+    id: 2,
+    value: "CALL",
+    title: "Call Me",
+  },
+  {
+    id: 3,
+    value: "EMAIL",
+    title: "Only Email Me",
+  },
+];
 
 // /* ------------------------------------ */
 // // Blog post data
@@ -437,38 +437,38 @@ export const clients = [
     id: 1,
     logo: reactjs,
     name: "ReactJS",
-    link: "https://reactjs.org/"
+    link: "https://reactjs.org/",
   },
   {
     id: 2,
     logo: nextjs,
     name: "NextJS",
-    link: "https://nextjs.org/"
+    link: "https://nextjs.org/",
   },
   {
     id: 3,
     logo: graphql,
     name: "GraphQL API",
-    link: "https://graphql.org/"
+    link: "https://graphql.org/",
   },
   {
     id: 4,
     logo: prisma2,
     name: "Prisma 2",
-    link: "https://www.prisma.io/"
+    link: "https://www.prisma.io/",
   },
   {
     id: 5,
     logo: zeit,
     name: "Zeit Now",
-    link: "https://zeit.co/"
+    link: "https://zeit.co/",
   },
   {
     id: 6,
     logo: apollo,
     name: "React Apollo",
-    link: "https://www.apollographql.com/"
-  }
+    link: "https://www.apollographql.com/",
+  },
   // {
   //   id: 6,
   //   logo: aws,

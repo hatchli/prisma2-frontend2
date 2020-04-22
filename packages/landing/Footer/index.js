@@ -1,123 +1,168 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Link from "next/link";
-import Box from "reusecore/src/elements/Box";
-import Text from "reusecore/src/elements/Text";
-import Heading from "reusecore/src/elements/Heading";
-import Logo from "reusecore/src/elements/UI/Logo";
+import React, { useContext } from "react";
+import Fade from "react-reveal/Fade";
+import { useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
+import { IS_CURRENTLY_LOGGED_IN } from "common/src/MutationsQueries";
 import Container from "common/src/components/UI/Container";
-import FooterWrapper, { List, ListItem } from "./footer.style";
+import Heading from "common/src/components/Heading";
+import Image from "common/src/components/Image";
+import Link from "common/src/components/Link";
+import Text from "common/src/components/Text";
+import List from "common/src/components/List";
+import Button from "reusecore/src/elements/Button";
+import { AuthContext } from "common/src/contexts/AuthContext";
+import { openModal, closeModal } from "@redq/reuse-modal";
+import LoginModal from "../LoginModal";
 
-import LogoImage from "common/src/assets/image/new-hatchli-logo.svg";
+import FooterWrapper, {
+  FooterInner,
+  CopyrightInfo,
+  FooterWidget,
+  Nav,
+} from "./footer.style";
+import LogoImage from "common/src/assets/image/logo-alt.png";
 
-import { FOOTER_WIDGET } from "common/src/data/SaasModern";
+import data from "common/src/data/AgencyModern";
 
-const Footer = ({
-  row,
-  col,
-  colOne,
-  colTwo,
-  titleStyle,
-  logoStyle,
-  textStyle
-}) => {
+const CloseModalButton = () => (
+  <Button
+    className="modalCloseBtn"
+    variant="fab"
+    onClick={() => closeModal()}
+    icon={<i className="flaticon-plus-symbol" />}
+  />
+);
+
+const Footer = () => {
+  const router = useRouter();
+  if (!router) {
+    return null;
+  }
+  const { dispatch } = useContext(AuthContext);
+  const { client, loading, refetch, data: userData } = useQuery(
+    IS_CURRENTLY_LOGGED_IN
+  );
+  console.log(userData);
+  const handleLoginModal = () => {
+    openModal({
+      config: {
+        className: "login-modal",
+        disableDragging: true,
+        width: "auto",
+        height: "auto",
+        animationFrom: { transform: "translateY(100px)" },
+        animationTo: { transform: "translateY(0)" },
+        transition: {
+          mass: 1,
+          tension: 180,
+          friction: 26,
+        },
+      },
+      component: LoginModal,
+      componentProps: {},
+      closeComponent: CloseModalButton,
+      closeOnClickOutside: false,
+    });
+  };
+
+  const handleLogout = () => {
+    dispatch({
+      type: "INAUTH",
+    });
+    client.resetStore();
+    router.push("/");
+  };
+
   return (
     <FooterWrapper>
-      <Container className="footer_container">
-        <Box className="row" {...row}>
-          <Box {...colOne}>
-            <Logo
-              href="#"
-              logoSrc={LogoImage}
-              title="Hosting"
-              logoStyle={logoStyle}
-            />
-            <Text content="wade@hatchli.com" {...textStyle} />
-            {/* <Text content="+479-443-9334" {...textStyle} /> */}
-          </Box>
-          {/* End of footer logo column */}
-          <Box {...colTwo}>
-            {FOOTER_WIDGET.map((widget, index) => (
-              <Box className="col" {...col} key={`footer-widget-${index}`}>
-                <Heading content={widget.title} {...titleStyle} />
-                <List>
-                  {widget.menuItems.map((item, index) => (
-                    <ListItem key={`footer-list-item-${index}`}>
-                      <Link href={item.url}>
-                        <a className="ListItem">{item.text}</a>
-                      </Link>
-                    </ListItem>
-                  ))}
-                </List>
-              </Box>
-            ))}
-          </Box>
-          {/* End of footer List column */}
-        </Box>
+      <Container>
+        <FooterInner>
+          <CopyrightInfo>
+            <Fade up delay={100}>
+              <Image src={LogoImage} alt="Logo" />
+              <p>
+                <Link href="#">Terms of use</Link> |{" "}
+                <Link href="#">Privacy</Link>
+              </p>
+              <p className="copyright">
+                <Link href="https://www.hatchli.com" target="_blank">
+                  built by Hatchli
+                </Link>
+              </p>
+            </Fade>
+          </CopyrightInfo>
+
+          <FooterWidget>
+            <Fade up delay={200}>
+              <Heading as="h4" content="About Us" />
+              <Nav>
+                {data.aboutUs.map((item) => (
+                  <Link key={item.id} href="#">
+                    {item.title}
+                  </Link>
+                ))}
+              </Nav>
+            </Fade>
+          </FooterWidget>
+
+          <FooterWidget>
+            <Fade up delay={300}>
+              <Heading as="h4" content="Our Information" />
+              <Nav>
+                {data.ourInformation.map((item) => (
+                  <Link key={item.id} href="#">
+                    {item.title}
+                  </Link>
+                ))}
+              </Nav>
+            </Fade>
+          </FooterWidget>
+
+          <FooterWidget>
+            <Fade up delay={400}>
+              <Heading as="h4" content="My Account" />
+              <Nav>
+                {data.myAccount.map((item) => (
+                  <Link key={item.id} href="#">
+                    {item.title}
+                  </Link>
+                ))}
+                {userData &&
+                  userData.currentUser &&
+                  userData.currentuser !== null && (
+                    <Link href="/account">Admin Page</Link>
+                  )}
+                {userData &&
+                  userData.currentUser &&
+                  userData.currentuser !== null && (
+                    <Link onClick={handleLogout}>
+                      Logout {userData.currentUser.name}
+                    </Link>
+                  )}
+                {(!userData || userData.currentUser === null) && (
+                  <Link onClick={handleLoginModal}>Login</Link>
+                )}
+              </Nav>
+            </Fade>
+          </FooterWidget>
+
+          <FooterWidget>
+            <Fade up delay={500}>
+              <Heading as="h4" content="Connect" />
+              <Nav>
+                {data.social.map((item) => (
+                  <Link key={item.id} href="#">
+                    <Image src={item.icon} alt="Facebook" />
+                    {item.title}
+                  </Link>
+                ))}
+              </Nav>
+            </Fade>
+          </FooterWidget>
+        </FooterInner>
       </Container>
     </FooterWrapper>
   );
-};
-
-// Footer style props
-Footer.propTypes = {
-  row: PropTypes.object,
-  col: PropTypes.object,
-  colOne: PropTypes.object,
-  colTwo: PropTypes.object,
-  titleStyle: PropTypes.object,
-  textStyle: PropTypes.object,
-  logoStyle: PropTypes.object
-};
-
-// Footer default style
-Footer.defaultProps = {
-  // Footer row default style
-  row: {
-    flexBox: true,
-    flexWrap: "wrap",
-    ml: "-15px",
-    mr: "-15px"
-  },
-  // Footer col one style
-  colOne: {
-    width: [1, "35%", "35%", "23%"],
-    mt: [0, "13px"],
-    mb: ["30px", 0],
-    pl: ["15px", 0],
-    pr: ["15px", "15px", 0]
-  },
-  // Footer col two style
-  colTwo: {
-    width: ["100%", "65%", "65%", "77%"],
-    flexBox: true,
-    flexWrap: "wrap"
-  },
-  // Footer col default style
-  col: {
-    width: ["50%", "50%", "50%", "25%"],
-    pl: "15px",
-    pr: "15px",
-    mb: "30px"
-  },
-  // widget title default style
-  titleStyle: {
-    color: "#343d48",
-    fontSize: "16px",
-    fontWeight: "700",
-    mb: "30px"
-  },
-  // Default logo size
-  logoStyle: {
-    width: "130px",
-    mb: "15px"
-  },
-  // widget text default style
-  textStyle: {
-    color: "#0f2137",
-    fontSize: "16px",
-    mb: "10px"
-  }
 };
 
 export default Footer;

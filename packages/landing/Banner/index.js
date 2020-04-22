@@ -1,106 +1,59 @@
-import React, { Fragment, useState, useEffect } from "react";
-import Link from "next/link";
-import { useQuery, useMutation } from "@apollo/client";
-import { IS_LOGGED_IN, NEW_PROPOSAL, EMAIL_CONSULT } from "../MutationsQueries";
-import { openModal, closeModal } from "@redq/reuse-modal";
-import LoginModal from "../LoginModal";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Fade from "react-reveal/Fade";
-import { Icon } from "react-icons-kit";
-import { iosEmailOutline } from "react-icons-kit/ionicons/iosEmailOutline";
-import Heading from "reusecore/src/elements/Heading";
-import Particles from "../containers/Agency/Particle";
+import useToggle from "common/src/components/useToggle";
+import Icon from "react-icons-kit";
+import Box from "reusecore/src/elements/Box";
 import Text from "reusecore/src/elements/Text";
+import Heading from "reusecore/src/elements/Heading";
 import Image from "reusecore/src/elements/Image";
-import Button from "reusecore/src/elements/Button";
+import Container from "common/src/components/UI/Container";
+// import SocialProfile from "../SocialProfile";
+import BannerWrapper, { SubscriptionForm } from "./banner.style";
+import Fade from "react-reveal/Fade";
 import Input from "common/src/components/Input";
-import Alert from "reusecore/src/elements/Alert/index";
-// import { CircleLoader } from "../interior.style";
-import BannerWrapper, {
-  SuccessWrapper,
-  Container,
-  ContentArea,
-  HighlightedText,
-  FormWrapper,
-  ButtonGroup,
-  CarouselArea
-} from "./banner.style";
+import Button from "common/src/components/Button";
+import CheckBox from "common/src/components/Checkbox";
 
-import SuccessImage from "common/src/assets/image/Custom-size.svg";
+import { useMutation } from "@apollo/client";
+import { REQUEST, SEND_CONFIRM_EMAIL } from "common/src/MutationsQueries";
 
-import { bannerData } from "common/src/data/Interior";
+import { SOCIAL_PROFILES } from "common/src/data/Portfolio/data";
+import { cornerDownRight } from "react-icons-kit/feather/cornerDownRight";
+import PersonImage from "common/src/assets/image/portfolio/person.png";
+import { check } from "react-icons-kit/feather/check";
+import { slash } from "react-icons-kit/feather/slash";
 
-const Banner = ({
+const BannerSection = ({
+  row,
+  contentArea,
+  imageArea,
   greetingStyle,
-  greetingStyleTwo,
-  priceLabelStyle,
-  nameStyle
+  nameStyle,
+  designationStyle,
+  aboutStyle,
+  // buttonStyle,
+  roleStyle,
+  roleWrapper,
 }) => {
-  const CloseModalButton = () => (
-    <Button
-      className="modalCloseBtn"
-      variant="fab"
-      onClick={() => closeModal()}
-      icon={<i className="flaticon-plus-symbol" />}
-    />
-  );
-
-  const handleLoginModal = () => {
-    e.preventDefault();
-    console.log("handleLogin called!");
-    openModal({
-      config: {
-        className: "login-modal",
-        disableDragging: true,
-        width: "100%",
-        height: "100%",
-        animationFrom: { transform: "translateY(100px)" },
-        animationTo: { transform: "translateY(0)" },
-        transition: {
-          mass: 1,
-          tension: 180,
-          friction: 26
-        }
-      },
-      component: LoginModal,
-      componentProps: {},
-      closeComponent: CloseModalButton,
-      closeOnClickOutside: false
-    });
-  };
-
-  const { title, text, carousel } = bannerData;
-  const glideOptions = {
-    type: "carousel",
-    perView: 2,
-    gap: 20,
-    breakpoints: {
-      1200: {
-        perView: 2
-      },
-      1000: {
-        perView: 1
-      }
-    }
-  };
-
-  const [loadingState, setLoadingState] = useState(false);
-  useEffect(() => {
-    setLoadingState(true);
-  }, []);
-
-  const [state, setState] = useState({ email: "", valid: "" });
+  const [state, setState] = useState({
+    email: "",
+    valid: "",
+    terms: true,
+    newsletterSelected: true,
+    newsletter: "NEWSLETTER",
+  });
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-  const handleOnChange = e => {
+  const handleOnChange = (e) => {
+    console.log(e);
     let value = "";
-    if (e.target.value.match(emailRegex)) {
-      if (e.target.value.length > 0) {
-        value = e.target.value;
+    if (e.match(emailRegex)) {
+      if (e.length > 0) {
+        value = e;
         setState({ ...state, email: value, valid: "valid" });
       }
     } else {
-      if (e.target.value.length > 0) {
+      if (e.length > 0) {
         setState({ ...state, valid: "invalid" });
       } else {
         setState({ ...state, valid: "" });
@@ -108,209 +61,249 @@ const Banner = ({
     }
   };
 
-  const [
-    newProposal,
-    { loading: emailLoading, error: emailError, data: emailData, client }
-  ] = useMutation(EMAIL_CONSULT, { errorPolicy: "all" });
+  const [toggleTerms, toggleTermsHandler] = useToggle(false);
+  const [toggleNewsletter, toggleNewsletterHandler] = useToggle(false);
 
-  const handleSubscriptionForm = e => {
+  const handleTermsIsChecked = (e) => {
+    toggleTermsHandler(!toggleTerms);
+    setState({ ...state, terms: toggleTerms });
+  };
+  const handleNewsletterIsChecked = (e) => {
+    toggleNewsletterHandler(!toggleNewsletter);
+    if (toggleNewsletter) {
+      setState({
+        ...state,
+        newsletterSelected: toggleNewsletter,
+        newsletter: "NEWSLETTER",
+      });
+    } else if (!toggleNewsletter) {
+      setState({
+        ...state,
+        newsletterSelected: toggleNewsletter,
+        newsletter: "",
+      });
+    }
+  };
+
+  const [
+    upsertOneRequest,
+    { loading: requestLoading, error: requestError, data: requestData },
+  ] = useMutation(REQUEST, { errorPolicy: "all" });
+
+  const [
+    sendConfirmEmail,
+    { loading: confirmLoading, error: confirmError, data: confirmData },
+  ] = useMutation(SEND_CONFIRM_EMAIL, {
+    errorPolicy: "all",
+    onCompleted: () => {
+      setState({ ...state, email: "" });
+    },
+  });
+
+  const handleSubscriptionForm = async (e) => {
     e.preventDefault();
     if (state.email.match(emailRegex)) {
-      console.log(state.email);
-
-      newProposal({
+      await upsertOneRequest({
         variables: {
-          input: {
-            email: state.email
-          }
-        }
+          where: {
+            email: state.email,
+          },
+          update: {
+            email: state.email,
+            acceptTerms: state.terms,
+            pdf: true,
+            newsletter: state.newsletterSelected,
+          },
+          create: {
+            email: state.email,
+            acceptTerms: state.terms,
+            pdf: true,
+            newsletter: state.newsletterSelected,
+          },
+        },
+      });
+      await sendConfirmEmail({
+        variables: {
+          email: state.email,
+        },
       });
     }
   };
 
   return (
-    <BannerWrapper>
-      <Particles />
-      <Container>
-        <ContentArea>
-          <Heading as="h1" content={title} {...greetingStyle} />
-          <Heading content={text} {...greetingStyleTwo} />
-          {!loadingState && (
-            <FormWrapper onSubmit={handleSubscriptionForm}>
-              <Input
-                className="hidden"
-                type="email"
-                placeholder="Enter email address"
-                icon={<Icon icon={iosEmailOutline} />}
-                iconPosition="left"
-                required={true}
-                onChange={handleOnChange}
-                aria-label="email"
+    <BannerWrapper id="banner_section">
+      <Container noGutter mobileGutter>
+        <Box {...row}>
+          <Box {...contentArea}>
+            <Heading content="Sed vulputate..." {...greetingStyle} />
+            <Heading content="Sit Amet" {...nameStyle} />
+            <Heading content="A cras semper" {...designationStyle} />
+            <Box {...roleWrapper}>
+              <Icon
+                icon={cornerDownRight}
+                style={{ color: "#3444f1" }}
+                size={22}
               />
-              <ButtonGroup className="hidden">
-                <>
-                  <Button
-                    type="submit"
-                    colors="primaryWithBg"
-                    title="FREE CONSULT"
-                  />
-                  <Button
-                    title="EXPLORE MORE"
-                    variant="textButton"
-                    icon={<i className="flaticon-next" />}
-                  />
-                </>
-              </ButtonGroup>
-            </FormWrapper>
-          )}
-          {loadingState && (
-            <Fade bottom delay={10}>
-              <FormWrapper onSubmit={handleSubscriptionForm}>
+              <Heading
+                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                {...roleStyle}
+              />
+            </Box>
+            {/* <Fade up delay={300}> */}
+            <SubscriptionForm>
+              <div>
                 <Input
-                  className={state.valid}
+                  inputType="email"
                   type="email"
-                  placeholder="Enter email address"
-                  icon={<Icon icon={iosEmailOutline} />}
+                  placeholder={
+                    confirmData || requestData
+                      ? "Please Check Your Email"
+                      : "Enter Your Email Address"
+                  }
                   iconPosition="left"
-                  required={true}
-                  onChange={handleOnChange}
                   aria-label="email"
+                  required
+                  onChange={handleOnChange}
                 />
-                <ButtonGroup>
-                  {emailLoading ? (
-                    <>
-                      <Button
-                        type="submit"
-                        colors="primaryWithBg"
-                        title="Submiting..."
-                        isLoading
+                <Button
+                  title={
+                    confirmLoading ||
+                    requestLoading ||
+                    requestData ||
+                    confirmData ||
+                    requestError ||
+                    confirmError
+                      ? ""
+                      : "Get PDF"
+                  }
+                  className="more_button"
+                  type="submit"
+                  onClick={handleSubscriptionForm}
+                  isLoading={confirmLoading || requestLoading}
+                  icon={
+                    requestData && confirmData ? (
+                      <Icon
+                        icon={check}
+                        style={{ color: "#fffff" }}
+                        // size={22}
                       />
-                      <Button
-                        title="EXPLORE MORE"
-                        variant="textButton"
-                        icon={<i className="flaticon-next" />}
+                    ) : confirmError || requestError ? (
+                      <Icon
+                        icon={slash}
+                        style={{ color: "#fffff" }}
+                        // size={22}
                       />
-                    </>
-                  ) : !emailLoading && emailData !== undefined ? (
-                    <>
-                      {console.log(emailData)}
-                      <SuccessWrapper>
-                        <Text
-                          className="text"
-                          content={`Please look out for an email from us to ${state.email} within 24 hours`}
-                          {...priceLabelStyle}
-                        />
-                        <Button
-                          title="EXPLORE MORE"
-                          variant="textButton"
-                          icon={<i className="flaticon-next" />}
-                        />
-                      </SuccessWrapper>
-                    </>
-                  ) : emailError ? (
-                    <>
-                      {console.log(emailError.graphQLErrors)}
-                      {emailError.graphQLErrors !== undefined ? (
-                        emailError.graphQLErrors.map(({ message }, i) => (
-                          <Button
-                            key={i}
-                            title={message}
-                            variant="textButton"
-                            colors="errorWithBg"
-                          />
-                        ))
-                      ) : emailError.networkError !== undefined ? (
-                        <>
-                          {console.log(emailError.networkError)}
-                          <Button
-                            title={emailError.networkError}
-                            variant="textButton"
-                            colors="errorWithBg"
-                          />
-                        </>
-                      ) : (
-                        <Button
-                          title="Uh-oh - seems there's a problem with the network!"
-                          variant="textButton"
-                          colors="errorWithBg"
-                        />
-                      )}
-
-                      <Button
-                        title="EXPLORE MORE"
-                        variant="textButton"
-                        icon={<i className="flaticon-next" />}
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <Button
-                        type="submit"
-                        colors="primaryWithBg"
-                        title="FREE CONSULT"
-                      />
-                      <Button
-                        title="EXPLORE MORE"
-                        variant="textButton"
-                        icon={<i className="flaticon-next" />}
-                      />
-                    </>
-                  )}
-                </ButtonGroup>
-              </FormWrapper>
-            </Fade>
-          )}
-        </ContentArea>
-        {/* End of content section */}
-        <CarouselArea>
-          <Image
-            src={SuccessImage}
-            className="man_image_area"
-            alt="Man Image"
-          />
-        </CarouselArea>
+                    ) : null
+                  }
+                  iconPosition="right"
+                  // variant="outlined"
+                  // {...buttonStyle}
+                />
+              </div>
+              <CheckBox
+                id="terms"
+                htmlFor="terms"
+                onClick={handleTermsIsChecked}
+                isChecked={state.terms}
+                labelText="I accept the terms and conditions"
+                required={true}
+              />
+              <CheckBox
+                id="newsletter"
+                htmlFor="newsletter"
+                onClick={handleNewsletterIsChecked}
+                isChecked={state.newsletterSelected}
+                labelText="Sign me up for the newsletter"
+                required={false}
+              />
+            </SubscriptionForm>
+            {/* </Fade> */}
+            {/* <SocialProfile items={SOCIAL_PROFILES} /> */}
+          </Box>
+          <Box {...imageArea} className="image_area">
+            <Image src={PersonImage} alt="Mat Helme" />
+          </Box>
+        </Box>
       </Container>
     </BannerWrapper>
   );
 };
 
-Banner.propTypes = {
+BannerSection.propTypes = {
+  row: PropTypes.object,
+  contentArea: PropTypes.object,
+  imageArea: PropTypes.object,
   greetingStyle: PropTypes.object,
-  greetingStyleTwo: PropTypes.object
+  nameStyle: PropTypes.object,
+  designationStyle: PropTypes.object,
+  aboutStyle: PropTypes.object,
+  roleStyle: PropTypes.object,
+  roleWrapper: PropTypes.object,
 };
 
-Banner.defaultProps = {
+BannerSection.defaultProps = {
+  row: {
+    flexBox: true,
+    flexWrap: "wrap",
+    alignItems: "stretch",
+  },
+  contentArea: {
+    width: ["100%", "100%", "50%", "50%"],
+    p: ["65px 0 40px 0", "65px 0 80px 0", "50px 25px 60px 0"],
+    flexBox: true,
+    flexWrap: "wrap",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
+  imageArea: {
+    width: ["100%", "100%", "50%", "50%"],
+    flexBox: true,
+    alignItems: "flex-end",
+  },
   greetingStyle: {
-    as: "h1",
-    color: "#15172c",
-    fontSize: ["36px", "48px", "52px", "72px"],
-    fontWeight: "600",
-    lineHeight: ["48px", "60px", "65px", "98px"],
-    mb: "0px"
+    color: "#fff",
+    fontSize: ["18px", "18px", "18px", "20px", "24px"],
+    fontWeight: "700",
+    mb: "8px",
   },
-  greetingStyleTwo: {
-    as: "h2",
-    color: "#15172c",
-    fontSize: ["30px", "36px", "48px"],
-    fontWeight: "400",
-    lineHeight: ["40px", "48px", "60px"],
-    mb: "8px"
-  },
-  priceLabelStyle: {
-    fontSize: ["13px", "14px", "14px", "14px", "14px"],
-    color: "#6e7379",
-    lineHeight: "1.75",
-    textAlign: "center",
-    mb: "0"
+  buttonStyle: {
+    // fontFamily: "Raleway",
+    // fontSize: ["18px", "18px", "18px", "20px"]
+    // fontWeight: "500",
   },
   nameStyle: {
-    fontSize: ["20px", "20px", "22px", "22px", "22px"],
+    as: "h2",
+    color: "#fff",
+    fontSize: ["38px", "38px", "44px", "60px", "80px", "120px"],
+    fontWeight: "800",
+    mb: "6px",
+  },
+  designationStyle: {
+    as: "h3",
+    color: "#fff",
+    fontSize: ["18px", "18px", "18px", "20px", "30px", "44px"],
     fontWeight: "700",
-    color: "#0f2137",
-    letterSpacing: "-0.025em",
-    textAlign: "center",
-    mb: "12px"
-  }
+    mb: ["30px", "30px", "25px", "30px", "30px", "44px"],
+  },
+  roleWrapper: {
+    flexBox: true,
+    mb: "28px",
+  },
+  roleStyle: {
+    as: "h4",
+    fontSize: ["18px", "18px", "18px", "18px", "20px", "24px"],
+    fontWeight: "500",
+    color: "#fff",
+    mb: "0",
+    ml: "10px",
+  },
+  aboutStyle: {
+    fontSize: ["15px", "15px", "15px", "16px", "16px", "18px"],
+    fontWeight: "400",
+    color: "#fff",
+    lineHeight: "1.5",
+    mb: "50px",
+  },
 };
 
-export default Banner;
+export default BannerSection;

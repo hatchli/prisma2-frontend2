@@ -1,4 +1,4 @@
-import colors from './colors';
+import colors from "./colors";
 export const agencyTheme = {
   breakpoints: [480, 768, 990, 1220],
   space: [0, 5, 10, 15, 20, 25, 30, 40, 56, 71, 91],
@@ -10,22 +10,22 @@ export const agencyTheme = {
     copy: 1.5,
   },
   letterSpacings: {
-    normal: 'normal',
-    tracked: '0.1em',
-    tight: '-0.05em',
-    mega: '0.25em',
+    normal: "normal",
+    tracked: "0.1em",
+    tight: "-0.05em",
+    mega: "0.25em",
   },
   fonts: {
     roboto: '"Roboto", sans-serif',
   },
-  borders: [0, '1px solid', '2px solid', '4px solid'],
-  radius: [0, 3, 5, 10, 15, 20, 25, 50, 60, '50%'],
+  borders: [0, "1px solid", "2px solid", "4px solid"],
+  radius: [0, 3, 5, 10, 15, 20, 25, 50, 60, "50%"],
   colors,
   colorStyles: {
     primary: {
       color: colors.primary,
       borderColor: colors.primary,
-      '&:hover': {
+      "&:hover": {
         color: colors.primaryHover,
         borderColor: colors.primaryHover,
       },
@@ -33,7 +33,7 @@ export const agencyTheme = {
     secondary: {
       color: colors.secondary,
       borderColor: colors.secondary,
-      '&:hover': {
+      "&:hover": {
         color: colors.secondaryHover,
         borderColor: colors.secondaryHover,
       },
@@ -41,7 +41,7 @@ export const agencyTheme = {
     warning: {
       color: colors.yellow,
       borderColor: colors.yellow,
-      '&:hover': {
+      "&:hover": {
         color: colors.yellowHover,
         borderColor: colors.yellowHover,
       },
@@ -49,7 +49,7 @@ export const agencyTheme = {
     error: {
       color: colors.secondaryHover,
       borderColor: colors.secondaryHover,
-      '&:hover': {
+      "&:hover": {
         color: colors.secondary,
         borderColor: colors.secondary,
       },
@@ -58,7 +58,7 @@ export const agencyTheme = {
       color: colors.white,
       backgroundColor: colors.primary,
       borderColor: colors.primary,
-      '&:hover': {
+      "&:hover": {
         backgroundColor: colors.primaryHover,
         borderColor: colors.primaryHover,
       },
@@ -67,7 +67,7 @@ export const agencyTheme = {
       color: colors.white,
       backgroundColor: colors.secondary,
       borderColor: colors.secondary,
-      '&:hover': {
+      "&:hover": {
         backgroundColor: colors.secondaryHover,
         borderColor: colors.secondaryHover,
       },
@@ -76,7 +76,7 @@ export const agencyTheme = {
       color: colors.white,
       backgroundColor: colors.yellow,
       borderColor: colors.yellow,
-      '&:hover': {
+      "&:hover": {
         backgroundColor: colors.yellowHover,
         borderColor: colors.yellowHover,
       },
@@ -85,7 +85,7 @@ export const agencyTheme = {
       color: colors.white,
       backgroundColor: colors.secondaryHover,
       borderColor: colors.secondaryHover,
-      '&:hover': {
+      "&:hover": {
         backgroundColor: colors.secondary,
         borderColor: colors.secondary,
       },
@@ -96,31 +96,31 @@ export const agencyTheme = {
       border: 0,
       color: colors.primary,
       padding: 0,
-      height: 'auto',
+      height: "auto",
       backgroundColor: `${colors.transparent}`,
     },
     outlined: {
-      borderWidth: '1px',
-      borderStyle: 'solid',
+      borderWidth: "1px",
+      borderStyle: "solid",
       backgroundColor: colors.transparent,
     },
     fab: {
-      border: '0',
-      width: '40px',
-      height: '40px',
+      border: "0",
+      width: "40px",
+      height: "40px",
       padding: 0,
-      borderRadius: '50%',
-      justifyContent: 'center',
-      'span.btn-icon': {
+      borderRadius: "50%",
+      justifyContent: "center",
+      "span.btn-icon": {
         paddingLeft: 0,
       },
     },
     extendedFab: {
-      border: '0',
-      minWidth: '50px',
-      height: '40px',
-      borderRadius: '50px',
-      justifyContent: 'center',
+      border: "0",
+      minWidth: "50px",
+      height: "40px",
+      borderRadius: "50px",
+      justifyContent: "center",
     },
   },
 };

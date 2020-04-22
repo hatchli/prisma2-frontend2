@@ -1,9 +1,10 @@
 import React from "react";
+import AdminPage from "common/src/components/AdminPage";
 
 const Account = () => {
   return (
     <>
-      <h2> Account Page</h2>
+      <AdminPage />
     </>
   );
 };
